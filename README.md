@@ -27,9 +27,10 @@ To run the project locally, follow these steps:
 
 ### 1. Clone the Repository
 
-~~~ git clone https://github.com/EASS-HIT-PART-A-2024-CLASS-V/Event_management_system.git
-
-~~~ cd Event_management_system/backend
+~~~
+git clone https://github.com/EASS-HIT-PART-A-2024-CLASS-V/Event_management_system.git
+cd Event_management_system/backend
+~~~ 
 
 ### 2. Build the Docker Image
 
