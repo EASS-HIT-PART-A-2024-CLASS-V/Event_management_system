@@ -1,15 +1,48 @@
-# Event_management_system
+# Event Management System (EMS)
 
-This project, developed as the final assignment for the EASS class at the university, consists of two main components:
+## Contact
+For any questions or inquiries about this project, please contact:
 
-## Backend
+  Rottem Dresler
+  Student ID: 209207398
+  Email: rottem1357@gmail.com
 
-The `backend` directory contains Python code that simulates the server-side of the application. It includes functionalities for managing events, handling data storage, and implementing server-side logic.
+## Description
 
-## Frontend
+This project, developed for EASS class at HIT,
+provides a backend system for managing and scheduling events. It utilizes FastAPI with Python to create APIs for event creation, scheduling, and user interaction.
 
-The `frontend` directory contains a React-based application that serves as the client-side of the system. It provides a user-friendly interface for interacting with the events management system. The frontend communicates with the backend to retrieve and update event data.
+## Project Overview
 
----
+The Event Management System (EMS) allows users to:
+- Create new events
+- Schedule events with other users
+- View API documentation using FastAPI
 
-This README provides an overview of the `Event_management_system` project structure and its main components.
+The project is designed to demonstrate backend development skills using FastAPI and Docker for containerization.
+
+## Setup Instructions
+
+To run the project locally, follow these steps:
+
+### 1. Clone the Repository
+
+git clone https://github.com/EASS-HIT-PART-A-2024-CLASS-V/Event_management_system.git
+cd Event_management_system/backend
+
+### 2. Build the Docker Image
+
+Navigate to the backend directory and build the Docker image (ems_backend):
+docker build -t ems_backend .
+
+### 3. Run the Docker Container
+
+Run the Docker container, mapping port 8000 on your local machine to port 8000 inside the container:
+docker run -p 8000:8000 ems_backend
+
+### 4. Access the API Documentation
+
+Open a web browser and navigate to:
+http://localhost:8000/docs
+
+
