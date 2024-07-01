@@ -3,8 +3,10 @@
 ## Contact
 For any questions or inquiries about this project, please contact:
 
-  Rottem Dresler
+  Name: Rottem Dresler
+  
   Student ID: 209207398
+  
   Email: rottem1357@gmail.com
 
 ## Description
