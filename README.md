@@ -54,6 +54,23 @@ docker run -p 8000:8000 ems_backend
 
 Open a web browser and navigate to:
 
+~~~
 http://localhost:8000/docs
+~~~
+
+### 5. Running Tests
+
+To run tests for the backend using pytest, follow these steps:
+
+#### 1. Navigate to the backend directory:
+
+~~~
+cd Event_management_system/backend
+~~~
 
 
+#### 2. Run pytest to execute the tests:
+
+~~~
+pytest
+~~~
