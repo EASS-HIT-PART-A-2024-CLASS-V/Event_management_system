@@ -27,21 +27,21 @@ To run the project locally, follow these steps:
 
 ### 1. Clone the Repository
 
-git clone https://github.com/EASS-HIT-PART-A-2024-CLASS-V/Event_management_system.git
+~~~git clone https://github.com/EASS-HIT-PART-A-2024-CLASS-V/Event_management_system.git
 
-cd Event_management_system/backend
+~~~cd Event_management_system/backend
 
 ### 2. Build the Docker Image
 
 Navigate to the backend directory and build the Docker image (ems_backend):
 
-docker build -t ems_backend .
+~~~docker build -t ems_backend .
 
 ### 3. Run the Docker Container
 
 Run the Docker container, mapping port 8000 on your local machine to port 8000 inside the container:
 
-docker run -p 8000:8000 ems_backend
+~~~docker run -p 8000:8000 ems_backend
 
 ### 4. Access the API Documentation
 
