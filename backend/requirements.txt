@@ -1,0 +1,5 @@
+uvicorn==0.15.0
+fastapi==0.111.0
+pymongo
+pytest
+httpx
