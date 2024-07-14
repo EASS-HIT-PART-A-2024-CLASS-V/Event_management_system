@@ -1,44 +1,45 @@
+// Login.js
+
 import React, { useState } from 'react';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        // Handle login logic (e.g., send credentials to server)
-        console.log(`Logging in with username: ${username} and password: ${password}`);
+    const handleLogin = () => {
+        // Implement your login logic here
+        // You can use 'username' and 'password' state values
+        console.log('Logging in...');
     };
 
     return (
         <div>
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}>
-                <div>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Login</button>
-            </form>
-            <p>
-                Not registered yet? <a href="/Signup">Sign up here</a>.
-            </p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Username:</td>
+                        <td>
+                            <input
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td>
+                            <input
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onClick={handleLogin}>Login</button>
+            <p>Not signed up yet? <a href="/Signup">Sign up here!</a></p>
         </div>
     );
 };

@@ -7,6 +7,44 @@ from mock_db import (
     get_all_participants, get_participant_by_id, set_participant, add_participant, delete_participant,
     get_all_invitations, get_invitation_by_id, set_invitation, add_invitation, delete_invitation
 )
+from pymongo import MongoClient
+
+username = 'admin'
+password = 'admin_password'
+host = 'localhost'  # Replace with your MongoDB host
+port = 27017  # Replace with your MongoDB port
+database_name = 'ems_database'
+
+# Construct the MongoDB URI
+mongoUri = f'mongodb://{username}:{password}@{host}:{port}/{database_name}'
+print (mongoUri)
+
+try:
+    # Connect to MongoDB
+    client = MongoClient(mongoUri)
+    db = client[database_name]
+
+    # Test the connection by printing the list of collections
+    print(db.list_collection_names())
+
+except Exception as e:
+    print(f"Error connecting to MongoDB: {e}")
+    
+# Replace with your MongoDB connection string (assuming it's running on localhost on default port)
+client = MongoClient(mongoUri)
+
+# Access the database (replace 'mydatabase' with your actual database name)
+db = client['ems_database']
+
+# Example query to retrieve data from a collection (replace 'users' with your actual collection name)
+users_collection = db['users']
+results = users_collection.find({})
+
+# Iterate over the results
+print(1.0,results)
+for result in results:
+    print(result)
+print(1.1)
 
 app = FastAPI()
 
