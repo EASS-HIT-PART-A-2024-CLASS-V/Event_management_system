@@ -32,7 +32,7 @@ const Navigation = () => {
                         </li>
                         <li>
                             <Link to="/contact">Contact</Link>
-                        </li>                                                
+                        </li> 
                     </ul>
                 </div>
                 <div className="navbar-right">

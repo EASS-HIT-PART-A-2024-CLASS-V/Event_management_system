@@ -9,11 +9,11 @@
     "build": "npm run build:database  && npm run build:backend && npm run build:frontend",
     "run:frontend": "cd frontend && docker run -p 3000:3000 --name ems_frontend_container ems_frontend",
     "run:backend": "cd backend && docker run -p 8000:8000 --name ems_backend_container  ems_backend",
-    "run:database": "cd database && docker run -d -p 27017:27017 --name ems_mongodb_container  ems_mongodb",
+    "run:database": "cd database && docker run -d -p 27018:27017 --name ems_mongodb_container  ems_mongodb",
     "run": "npm run run:database && npm run run:backend && npm run run:frontend",
     "dev:frontend": "cd frontend && npm start",
     "dev:backend": "cd backend && uvicorn main:app --host 0.0.0.0 --port 8000",
-    "dev:database": "cd database && docker run -d -p 27017:27017 --name ems_mongodb_container ems_mongodb",
+    "dev:database": "cd database && docker run -d -p 27018:27010 --name ems_mongodb_container ems_mongodb",
     "dev": "concurrently --kill-others \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev1": "npm run dev:database && npm run dev:backend && npm run dev:frontend"
   },
