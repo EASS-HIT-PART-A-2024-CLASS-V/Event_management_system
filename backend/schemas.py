@@ -56,3 +56,9 @@ class Invitation(BaseModel):
     class ConfigDict:
         populate_by_name = True
         json_encoders = {ObjectId: str}
+   
+
+##############################################################
+class AuthRequest(BaseModel):
+    username: str
+    password: str

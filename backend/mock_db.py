@@ -102,6 +102,13 @@ def get_user_by_id(user_id: str) -> Optional[User]:
     return None
 
 ##############################################################
+def get_user_by_credentials(username: str, password: str):
+    for user in users:
+        if user.username == username and user.password_hash == password :
+            return user.id
+    return '-1'
+
+##############################################################
 def set_user(user_id: str, user_data: User) -> Optional[User]:
     for i, user in enumerate(users):
         if user.id == user_id:
@@ -130,6 +137,16 @@ def get_event_by_id(event_id: str) -> Optional[Event]:
         if event.id == event_id:
             return event
     return None
+
+##############################################################
+def get_events_by_user_id(user_id: str) -> List[Event]:
+    user_events = []
+    for participant in participants:
+        if participant.user_id == user_id:
+            event = next((e for e in events if e.id == participant.event_id), None)
+            if event:
+                user_events.append(event)
+    return user_events
 
 ##############################################################
 def set_event(event_id: str, event_data: Event) -> Optional[Event]:

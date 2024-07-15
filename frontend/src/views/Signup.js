@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Api from '../Api/Api';
-import './Signup.css'; // Importing the CSS file for styling
+import './Signup.css';
 
 const Signup = () => {
     const [username, setUsername] = useState('');

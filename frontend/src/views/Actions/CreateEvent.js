@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 
-const CreateEvent = () => {
+const CreateEvent = (props) => {
     const [formData, setFormData] = useState({
         _id: '',
         title: '',
@@ -14,50 +14,26 @@ const CreateEvent = () => {
         created_at: '',
     });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        try {
-            const response = await fetch('/events/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-
-            if (response.ok) {
-                console.log('Event created successfully!');
-            } else {
-                console.error('Error creating event');
-            }
-        } catch (error) {
-            console.error('An error occurred:', error);
-        }
+    const handleSubmit = async () => {
+        
     };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
+    const handleChange = (event) => {
+        const { name, value } = event.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const handleCheckboxChange = (event) => {
+        const { name, checked } = event.target;
+        setFormData({
+            ...formData,
+            [name]: checked
+        });
     };
 
     return (
         <table>
             <tbody>
-                <tr>
-                    <td style={{ width: '33%' }}>
-                        <label htmlFor="_id">Event ID:</label>
-                    </td>
-                    <td style={{ width: '67%' }}>
-                        <input
-                            type="text"
-                            name="_id"
-                            placeholder="Event ID"
-                            value={formData._id}
-                            onChange={handleChange}
-                        />
-                    </td>
-                </tr>
                 <tr>
                     <td style={{ width: '33%' }}>
                         <label htmlFor="title">Title:</label>
@@ -106,7 +82,7 @@ const CreateEvent = () => {
                     </td>
                     <td style={{ width: '67%' }}>
                         <input
-                            type="text"
+                            type="datetime-local"
                             name="start_time"
                             placeholder="Start Time"
                             value={formData.start_time}
@@ -120,7 +96,7 @@ const CreateEvent = () => {
                     </td>
                     <td style={{ width: '67%' }}>
                         <input
-                            type="text"
+                            type="datetime-local"
                             name="end_time"
                             placeholder="End Time"
                             value={formData.end_time}
@@ -130,15 +106,14 @@ const CreateEvent = () => {
                 </tr>
                 <tr>
                     <td style={{ width: '33%' }}>
-                        <label htmlFor="created_by">Created By:</label>
+                        <label htmlFor="is_open">Is Open:</label>
                     </td>
                     <td style={{ width: '67%' }}>
                         <input
-                            type="text"
-                            name="created_by"
-                            placeholder="Created By"
-                            value={formData.created_by}
-                            onChange={handleChange}
+                            type="checkbox"
+                            name="is_open"
+                            checked={formData.is_open}
+                            onChange={handleCheckboxChange}
                         />
                     </td>
                 </tr>

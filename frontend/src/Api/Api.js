@@ -32,6 +32,32 @@ const getUserById = async (userId) => {
     }
 }
 
+const getUserAuth = async (username, password) => {
+    try {
+        const props = { username, password };
+        const propsJson = JSON.stringify(props); 
+
+        const response = await fetch(`${BASE_URL}/api/users/auth`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: propsJson 
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(`Error fetching user ${username}:`, error);
+        throw error;
+    }
+}
+
+
 const createUser = async (user) => {
     const userJson = JSON.stringify(user);
 
@@ -115,6 +141,20 @@ const getEventById = async (eventId) => {
         return data;
     } catch (error) {
         console.error(`Error fetching event ${eventId}:`, error);
+        throw error;
+    }
+}
+
+const getEventByUserId = async (userId) => {
+    try {
+        const response = await fetch(`${BASE_URL}/api/events_by_user/${userId}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(`Error fetching event ${userId}:`, error);
         throw error;
     }
 }
@@ -359,6 +399,12 @@ const Api = {
         return jsonString
     },
 
+    getUserAuth: async (username, password) => {
+        let data = await getUserAuth(username, password)
+        let jsonString = JSON.stringify(data)
+        return jsonString
+    },
+
     createUser: async (user) => {
         console.log(typeof (user), user)
         let data = await createUser(user)
@@ -387,6 +433,12 @@ const Api = {
 
     getEventById: async (eventId) => {
         let data = await getEventById(eventId)
+        let jsonString = JSON.stringify(data)
+        return jsonString
+    },
+
+    getEventByUserId: async (userId) => {
+        let data = await getEventByUserId(userId)
         let jsonString = JSON.stringify(data)
         return jsonString
     },

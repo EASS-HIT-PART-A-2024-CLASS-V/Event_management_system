@@ -13,7 +13,6 @@ const Navigation = () => {
     const [userId, setUserId] = useState('-1')
 
     const handleLogIn = (currentId) => {
-        console.log("tried to log in")
         setUserId(currentId)
     }
 

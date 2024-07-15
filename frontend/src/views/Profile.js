@@ -1,11 +1,11 @@
-// Profile.js
-
 import React, { useState, useEffect } from 'react';
 import Api from '../Api/Api';
 
 const Profile = (props) => {
     const [user, setUser] = useState(null);
+    const [newName, setNewName] = useState('');
     const [newEmail, setNewEmail] = useState('');
+    const [newPassword, setNewPassword] = useState('');
     const [updateMessage, setUpdateMessage] = useState('');
     const [fetchMessage, setFetchMessage] = useState('');
 
@@ -25,60 +25,88 @@ const Profile = (props) => {
         }
     };
 
+    const handleNameChange = (event) => {
+        setNewName(event.target.value);
+    };
+
     const handleEmailChange = (event) => {
         setNewEmail(event.target.value);
     };
 
-    const handleUpdateEmail = async () => {
+    const handlePasswordChange = (event) => {
+        setNewPassword(event.target.value);
+    };
+
+    const handleUpdateProfile = async () => {
         try {
-            if (!newEmail) {
-                setUpdateMessage('Please enter a new email.');
+            if (!newName && !newEmail && !newPassword) {
+                setUpdateMessage('Please enter at least one field to update.');
                 return;
             }
 
-            const updatedUser = { ...user, email: newEmail };
+            const updatedUser = {
+                ...user,
+                name: newName || user.name,
+                email: newEmail || user.email,
+                password: newPassword || user.password
+            };
+
             const response = await Api.updateUser(props.userId, updatedUser);
-            setUpdateMessage('User email updated successfully.');
             setUser(response); // Update the user state with the response
+            setUpdateMessage('User profile updated successfully.');
         } catch (error) {
-            console.error('Error updating email:', error);
-            setUpdateMessage('Error updating user email.');
+            console.error('Error updating profile:', error);
+            setUpdateMessage('Error updating user profile.');
         }
     };
 
     if (!user) {
-        return <div>
-            <p>
-                Loading...
-            </p>
-            <strong>
-                please make sure you are logged in
-            </strong>
-        </div>;
+        return (
+            <div>
+                <p>Loading...</p>
+                <strong>Please make sure you are logged in.</strong>
+            </div>
+        );
     }
 
     return (
-        <div>
+        <div className="profile-container">
             <h2>User Profile</h2>
-            <div>
-                <p>ID: {user._id}</p>
-                <p>Name: {user.name}</p>
-                <p>Email: {user.email}</p>
+            <div className="profile-info">
+                <p><strong>ID:</strong> {user._id}</p>
+                <p><strong>Name:</strong> {user.name}</p>
+                <p><strong>Email:</strong> {user.email}</p>
             </div>
-            <br />
-            <div>
-                <h3>Update Email</h3>
+            <div className="profile-form">
+                <h3>Update Profile</h3>
+                <label htmlFor="name">Name:</label>
                 <input
+                    id="name"
+                    type="text"
+                    value={newName}
+                    onChange={handleNameChange}
+                    placeholder="New Name"
+                />
+                <label htmlFor="email">Email:</label>
+                <input
+                    id="email"
                     type="text"
                     value={newEmail}
                     onChange={handleEmailChange}
                     placeholder="New Email"
                 />
-                <button onClick={handleUpdateEmail}>Update Email</button>
+                <label htmlFor="password">Password:</label>
+                <input
+                    id="password"
+                    type="password"
+                    value={newPassword}
+                    onChange={handlePasswordChange}
+                    placeholder="New Password"
+                />
+                <button onClick={handleUpdateProfile}>Update Profile</button>
                 <p>{updateMessage}</p>
             </div>
-            <br />
-            <div>
+            <div className="profile-messages">
                 <h3>Fetch Message</h3>
                 <p>{fetchMessage}</p>
             </div>

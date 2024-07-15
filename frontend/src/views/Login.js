@@ -3,9 +3,9 @@ import Api from '../Api/Api';
 
 const Login = (props) => {
     console.log(props)
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
 
     const handleLogin = async () => {
         if (!props.onLogin) {
@@ -13,22 +13,16 @@ const Login = (props) => {
             return;
         }
         try {
-            let usersString = await Api.getAllUsers();
-            let usersObj = JSON.parse(usersString)
+            let responseUserId = await Api.getUserAuth(username, password);
+            let message = "User does not exist"
 
-            usersObj.forEach(user => {
-                let usernameTmp = user.username
-                let passwordTmp = user.password_hash
+            if (responseUserId === '-1') {
+                return
+            }
 
-                if (usernameTmp === username && passwordTmp === password) {
-                    setMessage('User exists')
-                    console.log(user._id)
-                    props.onLogin(user._id);
-                    console.log("User is logged in");
-                    return;
-                }
-            })
-            setMessage('User does not exist')
+            message = "you have logged in succesfully"
+            props.onLogin(responseUserId);
+            setMessage(message)
         }
         catch (error) {
             console.error('Error fetching or processing users:', error);
