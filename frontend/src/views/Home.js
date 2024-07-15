@@ -1,4 +1,3 @@
-// Home.js
 import React, { useState } from 'react';
 import Api from '../Api/Api';
 const Home = () => {

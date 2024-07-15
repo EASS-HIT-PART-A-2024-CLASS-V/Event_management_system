@@ -1,15 +1,40 @@
 // Login.js
 
 import React, { useState } from 'react';
+import Api from '../Api/Api'; 
 
-const Login = () => {
+const Login = (props) => {
+    console.log(props)
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
 
-    const handleLogin = () => {
-        // Implement your login logic here
-        // You can use 'username' and 'password' state values
-        console.log('Logging in...');
+    const handleLogin = async () => {
+        
+        if (!props.onLogin) {
+            console.log("handlelogin function does not exist")
+            return;
+        }
+        try {
+            let usersString = await Api.getAllUsers();
+            let usersObj = JSON.parse(usersString)
+
+            usersObj.forEach(user => {
+                let usernameTmp = user.username
+                let passwordTmp = user.password
+
+                if (usernameTmp === username && passwordTmp === password) {
+                    setMessage('User exists')
+                    props.handleLogin(user._id)
+                    console.log("User is logged in");
+                    return;
+                }
+            })
+            setMessage('User does not exist')
+        }
+        catch (error) {
+            console.error('Error fetching or processing users:', error);
+        }
     };
 
     return (
@@ -38,8 +63,11 @@ const Login = () => {
                     </tr>
                 </tbody>
             </table>
-            <button onClick={handleLogin}>Login</button>
-            <p>Not signed up yet? <a href="/Signup">Sign up here!</a></p>
+            <strong>{message}</strong>
+            <div>
+                <button onClick={handleLogin}>Login</button>
+                <p>Not signed up yet? <a href="/Signup">Sign up here!</a></p>
+            </div>
         </div>
     );
 };

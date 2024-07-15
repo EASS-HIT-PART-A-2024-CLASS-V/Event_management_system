@@ -6,7 +6,7 @@ import CreateEventModal from './Actions/CreateEventModal';
 
 const localizer = momentLocalizer(moment);
 
-const MyEvents = () => {
+const MyEvents = (props) => {
     const [view, setView] = useState('month'); // Default view is month
 
     // Example events data (replace with actual data from backend later)

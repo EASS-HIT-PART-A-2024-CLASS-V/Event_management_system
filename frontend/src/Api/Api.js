@@ -342,7 +342,6 @@ const deleteInvitation = async (invitationId) => {
 
 ///Declerations//////////////////////////////////////////////////////////////
 const Api = {
-
     ///users/////////////////////////////////////////////////////////////////
 
     getAllUsers: async () => {
@@ -374,7 +373,6 @@ const Api = {
         let jsonString = JSON.stringify(data)
         return jsonString
     },
-
     ///events/////////////////////////////////////////////////////////////////
 
     getAllEvents: async () => {
@@ -406,7 +404,6 @@ const Api = {
         let jsonString = JSON.stringify(data)
         return jsonString
     },
-
     ///participants/////////////////////////////////////////////////////////////////
 
     getAllParticipants: async () => {
@@ -438,7 +435,6 @@ const Api = {
         let jsonString = JSON.stringify(data)
         return jsonString
     },
-
     ///invitations/////////////////////////////////////////////////////////////////
 
     getAllInvitations: async () => {

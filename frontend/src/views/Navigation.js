@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 import './Navbar.css';
 import Home from './Home';
 import About from './About';
@@ -7,8 +7,20 @@ import Contact from './Contact';
 import Login from './Login';
 import MyEvents from './MyEvents';
 import Signup from './Signup';
+import Profile from './Profile';
 
 const Navigation = () => {
+    const [userId, setUserId] = useState(-1)
+
+    const handleLogIn = (currentId) => {
+        console.log("tried to log in")
+        setUserId(currentId)
+    }
+
+    const handleLogOut = () => {
+        setUserId(-1)
+    }
+
     return (
         <Router>
             <nav className="navbar">
@@ -36,9 +48,11 @@ const Navigation = () => {
                     </ul>
                 </div>
                 <div className="navbar-right">
-                    <a href="/account" className="user-icon">
-                        <i className="fas fa-user"></i>
-                    </a>
+                    <ul className="nav-links">
+                        <li>
+                            <Link to="/Profile">My profile</Link>
+                        </li>
+                    </ul>
                 </div>
                 </nav>
 
@@ -47,9 +61,10 @@ const Navigation = () => {
                 <Route path="/Contact" element={<Contact />} />
                 <Route path="/" element={<Home />} />
                 <Route path="*" element={<Home />} />
-                <Route path="Login" element={<Login />} />
-                <Route path="MyEvents" element={<MyEvents />} />
+                <Route path="Login" element={<Login onLogin={handleLogIn} />} />
+                <Route path="MyEvents" element={<MyEvents userId={userId} />} />
                 <Route path="Signup" element={<Signup />} />
+                <Route path="Profile" element={<Profile userId = {userId} onLogout = { handleLogOut } />} />
             </Routes>
         </Router>
     );
