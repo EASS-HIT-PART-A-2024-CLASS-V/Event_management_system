@@ -5,12 +5,12 @@ from main import app
 client = TestClient(app)
 
 def test_home():
-    response = client.get('/')
+    response = client.get('api/hi')
     assert response.status_code == 200
     assert response.json() == {'message': 'Hello world'}
 
 def test_read_users():
-    response = client.get('/users/')
+    response = client.get('api/users/')
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
@@ -25,15 +25,14 @@ def test_read_user():
         assert response.status_code == 404
 
 def test_create_user():
-    new_user = {
-        "_id": "1",
+    new_user = {   
         "username": "newusername",
         "email": "user@example.com",
         "password_hash": "newpassowrd",
         "name": "newname",
         "created_at": "2024-06-30T07:04:55.672Z"
     }
-    response = client.post('/users/', json=new_user)
+    response = client.post('api/users/', json=new_user)
     print(response.json())  # Added for debugging
     assert response.status_code == 200
     response_data = response.json()
@@ -61,7 +60,6 @@ def test_update_user():
 
 def test_create_event():
     new_event = {
-        "_id": "1",
         "title": "newtitle",
         "description": "newdescription",
         "location": "newloaction",
@@ -71,7 +69,7 @@ def test_create_event():
         "is_open": True,
         "created_at": "2024-06-30T07:09:35.330Z"
     }
-    response = client.post('/events/', json=new_event)
+    response = client.post('api/events/', json=new_event)
     print(response.json())  # Added for debugging
     assert response.status_code == 200
     response_data = response.json()
@@ -102,12 +100,11 @@ def test_update_event():
 
 def test_create_participant():
     new_participant = {
-        "_id": "1",
         "event_id": "1",
         "user_id": "1",
         "joined_at": "2024-06-30T07:11:45.624Z"
     }
-    response = client.post('/participants/', json=new_participant)
+    response = client.post('api/participants/', json=new_participant)
     print(response.json())  # Added for debugging
     assert response.status_code == 200
     response_data = response.json()
@@ -133,7 +130,6 @@ def test_update_participant():
 
 def test_create_invitation():
     new_invitation = {
-        "_id": "1",
         "event_id": "1",
         "inviter_id": "1",
         "invitee_id": "2",
@@ -141,7 +137,7 @@ def test_create_invitation():
         "sent_at": "2024-06-30T07:12:39.600Z",
         "responded_at": "2024-06-30T07:12:39.600Z"
     }
-    response = client.post('/invitations/', json=new_invitation)
+    response = client.post('api/invitations/', json=new_invitation)
     print(response.json())  # Added for debugging
     assert response.status_code == 200
     response_data = response.json()

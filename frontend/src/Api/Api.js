@@ -33,13 +33,16 @@ const getUserById = async (userId) => {
 }
 
 const createUser = async (user) => {
+    const userJson = JSON.stringify(user);
+
     try {
+        console.log(userJson)
         const response = await fetch(`${BASE_URL}/api/users/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(user),
+            body: userJson,
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -357,6 +360,7 @@ const Api = {
     },
 
     createUser: async (user) => {
+        console.log(typeof (user), user)
         let data = await createUser(user)
         let jsonString = JSON.stringify(data)
         return jsonString

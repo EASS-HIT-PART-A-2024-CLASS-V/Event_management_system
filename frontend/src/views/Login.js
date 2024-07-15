@@ -1,5 +1,3 @@
-// Login.js
-
 import React, { useState } from 'react';
 import Api from '../Api/Api'; 
 
@@ -10,7 +8,6 @@ const Login = (props) => {
     const [message, setMessage] = useState('');
 
     const handleLogin = async () => {
-        
         if (!props.onLogin) {
             console.log("handlelogin function does not exist")
             return;
@@ -21,11 +18,12 @@ const Login = (props) => {
 
             usersObj.forEach(user => {
                 let usernameTmp = user.username
-                let passwordTmp = user.password
+                let passwordTmp = user.password_hash
 
                 if (usernameTmp === username && passwordTmp === password) {
                     setMessage('User exists')
-                    props.handleLogin(user._id)
+                    console.log(user._id)
+                    props.onLogin(user._id);
                     console.log("User is logged in");
                     return;
                 }

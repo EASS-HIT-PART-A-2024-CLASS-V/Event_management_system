@@ -1,12 +1,11 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from typing import Optional
 from datetime import datetime
 from bson import ObjectId
-from pydantic import Field, ConfigDict
 
 ##############################################################
 class User(BaseModel):
-    id: Optional[str] = Field(alias="_id")
+    id: Optional[str] = Field(default_factory=lambda: str(ObjectId()), alias="_id")
     username: str
     email: EmailStr
     password_hash: str
@@ -19,7 +18,7 @@ class User(BaseModel):
 
 ##############################################################
 class Event(BaseModel):
-    id: Optional[str] = Field(alias="_id")
+    id: Optional[str] = Field(default_factory=lambda: str(ObjectId()), alias="_id")
     title: str
     description: Optional[str] = None
     location: Optional[str] = None
@@ -35,7 +34,7 @@ class Event(BaseModel):
 
 ##############################################################
 class Participant(BaseModel):
-    id: Optional[str] = Field(alias="_id")
+    id: Optional[str] = Field(default_factory=lambda: str(ObjectId()), alias="_id")
     event_id: str  # This should be a reference to Event ID
     user_id: str  # This should be a reference to User ID
     joined_at: Optional[datetime] = None
@@ -46,7 +45,7 @@ class Participant(BaseModel):
 
 ##############################################################
 class Invitation(BaseModel):
-    id: Optional[str] = Field(alias="_id")
+    id: Optional[str] = Field(default_factory=lambda: str(ObjectId()), alias="_id")
     event_id: str  # This should be a reference to Event ID
     inviter_id: str  # This should be a reference to User ID
     invitee_id: str  # This should be a reference to User ID

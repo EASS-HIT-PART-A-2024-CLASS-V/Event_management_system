@@ -1,6 +1,7 @@
 from typing import List
 from fastapi import FastAPI, HTTPException
 from schemas import User, Event, Participant, Invitation
+from datetime import datetime
 from mock_db import (
     get_all_users, get_user_by_id, set_user, add_user, delete_user,
     get_all_events, get_event_by_id, set_event, add_event, delete_event,
@@ -60,6 +61,8 @@ async def read_user(user_id: str):
 ####################################################################################
 @app.post('/api/users/', response_model=User)
 async def create_user(user: User):
+    print("entered create user backend")
+    user.created_at = datetime.now() 
     return add_user(user)
 
 ####################################################################################

@@ -10,7 +10,7 @@ import Signup from './Signup';
 import Profile from './Profile';
 
 const Navigation = () => {
-    const [userId, setUserId] = useState(-1)
+    const [userId, setUserId] = useState('-1')
 
     const handleLogIn = (currentId) => {
         console.log("tried to log in")
@@ -18,7 +18,7 @@ const Navigation = () => {
     }
 
     const handleLogOut = () => {
-        setUserId(-1)
+        setUserId('-1')
     }
 
     return (

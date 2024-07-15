@@ -141,6 +141,7 @@ def set_event(event_id: str, event_data: Event) -> Optional[Event]:
 
 ##############################################################
 def add_event(event_data: Event) -> Event:
+    event_data.created_at = datetime.now() 
     events.append(event_data)
     return event_data
 
@@ -171,6 +172,7 @@ def set_participant(participant_id: str, participant_data: Participant) -> Optio
 
 ##############################################################
 def add_participant(participant_data: Participant) -> Participant:
+    participant_data.joined_at = datetime.now()
     participants.append(participant_data)
     return participant_data
 
@@ -201,6 +203,7 @@ def set_invitation(invitation_id: str, invitation_data: Invitation) -> Optional[
 
 ##############################################################
 def add_invitation(invitation_data: Invitation) -> Invitation:
+    invitation_data.sent_at = datetime.now()
     invitations.append(invitation_data)
     return invitation_data
 
