@@ -103,7 +103,7 @@ const updateUser = async (userId, user) => {
 
 const deleteUser = async (userId) => {
     try {
-        const response = await fetch(`${BASE_URL}/api/users/${userId}`, {
+        const response = await fetch(`${BASE_URL}/api/users/delete/${userId}`, {
             method: 'DELETE',
         });
         if (!response.ok) {
@@ -161,7 +161,7 @@ const getEventByUserId = async (userId) => {
 
 const createEvent = async (event) => {
     try {
-        const response = await fetch(`${BASE_URL}/api/events/`, {
+        const response = await fetch(`${BASE_URL}/api/events/create`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

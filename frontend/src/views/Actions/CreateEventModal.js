@@ -25,7 +25,7 @@ const CreateEventModal = (props) => {
                 <Modal isOpen={showModal} toggle={toggle} size="lg">
                     <ModalHeader>Create a new Event</ModalHeader>
                     <ModalBody>
-                        <CreateEvent/>
+                        <CreateEvent onSubmit={handleCreateEvent} userId={props.userId} />
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={toggle}>

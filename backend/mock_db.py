@@ -106,7 +106,7 @@ def get_user_by_credentials(username: str, password: str):
     for user in users:
         if user.username == username and user.password_hash == password :
             return user.id
-    return '-1'
+    return -1
 
 ##############################################################
 def set_user(user_id: str, user_data: User) -> Optional[User]:
@@ -122,10 +122,14 @@ def add_user(user_data: User) -> User:
     return user_data
 
 ##############################################################
-def delete_user(user_id: str) -> bool:
-    global users
-    users = [user for user in users if user.id != user_id]
-    return True
+def deleted_user(user_id: str) -> bool:
+    for i, user in enumerate(users):
+        if user.id == user_id:
+            del users[i]
+            print(111111111111111111)
+            return True
+    
+    return False
 
 ##########___EVENTS___########################################
 def get_all_events() -> List[Event]:
@@ -164,9 +168,12 @@ def add_event(event_data: Event) -> Event:
 
 ##############################################################
 def delete_event(event_id: str) -> bool:
-    global events
-    events = [event for event in events if event.id != event_id]
-    return True
+    for i, event in enumerate(events):
+        if event.id == event_id:
+            del events[i]
+            return True
+    
+    return False
 
 #########____PARTICIPANTS___##################################
 def get_all_participants() -> List[Participant]:
@@ -195,9 +202,12 @@ def add_participant(participant_data: Participant) -> Participant:
 
 ##############################################################
 def delete_participant(participant_id: str) -> bool:
-    global participants
-    participants = [participant for participant in participants if participant._id != participant_id]
-    return True
+    for i, participant in enumerate(participants):
+        if participant._id == participant_id:
+            del participants[i]
+            return True
+    
+    return False
 
 ########_____INVITATIONS____##################################
 def get_all_invitations() -> List[Invitation]:
@@ -226,9 +236,12 @@ def add_invitation(invitation_data: Invitation) -> Invitation:
 
 ##############################################################
 def delete_invitation(invitation_id: str) -> bool:
-    global invitations
-    invitations = [invitation for invitation in invitations if invitation.id != invitation_id]
-    return True
+    for i, invitation in enumerate(invitations):
+        if invitation.id == invitation_id:
+            del invitations[i]
+            return True
+    
+    return False
 
 ##############################################################
 

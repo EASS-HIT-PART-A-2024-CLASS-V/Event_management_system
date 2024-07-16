@@ -5,10 +5,10 @@ from fastapi import FastAPI, HTTPException
 from schemas import User, Event, Participant, Invitation ,AuthRequest
 from datetime import datetime
 from mock_db import (
-    get_all_users, get_user_by_id,get_user_by_credentials, set_user, add_user, delete_user,
-    get_all_events, get_event_by_id,get_events_by_user_id, set_event, add_event, delete_event,
-    get_all_participants, get_participant_by_id, set_participant, add_participant, delete_participant,
-    get_all_invitations, get_invitation_by_id, set_invitation, add_invitation, delete_invitation
+    get_all_users, get_user_by_id,get_user_by_credentials, set_user, add_user, deleted_user,
+    get_all_events, get_event_by_id,get_events_by_user_id, set_event, add_event, deleted_event,
+    get_all_participants, get_participant_by_id, set_participant, add_participant, deleted_participant,
+    get_all_invitations, get_invitation_by_id, set_invitation, add_invitation, deleted_invitation
 )
 from pymongo import MongoClient
 
@@ -68,11 +68,9 @@ async def read_user(auth_request: AuthRequest):
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
-
 ####################################################################################
 @app.post('/api/users/', response_model=User)
 async def create_user(user: User):
-    print("entered create user backend")
     user.created_at = datetime.now() 
     return add_user(user)
 
@@ -85,9 +83,10 @@ async def update_user(user_id: str, user: User):
     return updated_user
 
 ####################################################################################
-@app.delete('/api/users/{user_id}', response_model=bool)
+@app.delete('/api/users/delete/{user_id}', response_model=bool)
 async def delete_user(user_id: str):
-    if not delete_user(user_id):
+    print("entered delete")
+    if not deleted_user(user_id):
         raise HTTPException(status_code=404, detail="User not found")
     return True
 
@@ -107,13 +106,10 @@ async def read_event(event_id: str):
 ####################################################################################
 @app.get('/api/events_by_user/{user_id}', response_model=List[Event])
 async def read_event_by_user(user_id: str):
-    print(111111111111111111111 , user_id)
     event = get_events_by_user_id(user_id)
-    print(111111111111111111111 , event)
     if event is None:
         return []
-    
-    
+     
     return event
 
 ####################################################################################
@@ -132,7 +128,7 @@ async def update_event(event_id: str, event: Event):
 ####################################################################################
 @app.delete('/api/events/{event_id}', response_model=bool)
 async def delete_event(event_id: str):
-    if not delete_event(event_id):
+    if not deleted_event(event_id):
         raise HTTPException(status_code=404, detail="Event not found")
     return True
 
@@ -165,7 +161,7 @@ async def update_participant(participant_id: str, participant: Participant):
 ####################################################################################
 @app.delete('/api/participants/{participant_id}', response_model=bool)
 async def delete_participant(participant_id: str):
-    if not delete_participant(participant_id):
+    if not deleted_participant(participant_id):
         raise HTTPException(status_code=404, detail="Participant not found")
     return True
 
@@ -198,6 +194,6 @@ async def update_invitation(invitation_id: str, invitation: Invitation):
 ####################################################################################
 @app.delete('/api/invitations/{invitation_id}', response_model=bool)
 async def delete_invitation(invitation_id: str):
-    if not delete_invitation(invitation_id):
+    if not deleted_invitation(invitation_id):
         raise HTTPException(status_code=404, detail="Invitation not found")
     return True

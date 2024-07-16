@@ -5,7 +5,7 @@ const Login = (props) => {
     console.log(props)
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState("User does not exist");
 
     const handleLogin = async () => {
         if (!props.onLogin) {
@@ -14,14 +14,16 @@ const Login = (props) => {
         }
         try {
             let responseUserId = await Api.getUserAuth(username, password);
-            let message = "User does not exist"
+            let message = ""
 
-            if (responseUserId === '-1') {
-                return
+            if (responseUserId === "-1") {
+                message = "User does not exist"
             }
-
-            message = "you have logged in succesfully"
-            props.onLogin(responseUserId);
+            else {
+                let parsed_id = JSON.parse(responseUserId)
+                props.onLogin(parsed_id);
+                message = "you have logged in succesfully"
+            }
             setMessage(message)
         }
         catch (error) {

@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Api from '../Api/Api';
 const Home = () => {
     const [message, setMessage] = useState('');
 
+    useEffect(() => {
+        main();
+    }, [])
     const main = async () => {
-
         (async () => {
             try {
                 let allUsers = await Api.getAllUsers();
@@ -16,7 +18,7 @@ const Home = () => {
             }
         })();
     };
-    main();
+    
     return (
         <div>
             <h2>Home</h2>
