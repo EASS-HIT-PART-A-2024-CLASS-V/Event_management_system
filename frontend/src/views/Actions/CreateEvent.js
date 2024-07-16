@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from 'reactstrap';
 
@@ -18,7 +17,12 @@ const CreateEvent = (props) => {
     });
 
     const handleSubmit = async () => {
+        if (!props.onSubmit) {
+            console.log("on submit function does not exist")
+            return;
+        }
         try {
+            console.log("entered")
             const now = new Date();
             const formattedDate = now.toISOString();
 
@@ -27,23 +31,18 @@ const CreateEvent = (props) => {
                 created_at: formattedDate,
             };
 
-            const event = JSON.stringify(updatedFormData);
-            const response = await Api.CreateEvent(event)
+            const response = await Api.createEvent(updatedFormData)
             if (response) {
                 console.log("succes. event created.")
             } else {
-                console.log('Failed to register user. Please try again.');
+                console.log('Failed to create event. Please try again.');
             }
 
             setFormData(updatedFormData)
-
-            if (!props.onSubmit) {
-                return;
-            }
-            props.onSubmit(updatedFormData)
+            props.onSubmit()
         }
         catch (error) {
-            console.error('Error registering user:', error);
+            console.error('Error creating event:', error);
         }
     }
 
@@ -54,6 +53,14 @@ const CreateEvent = (props) => {
             [name]: type === 'checkbox' ? checked : value,
         }))
     };
+
+    const handleCancel = () => {
+        if (!props.onCancel) {
+            console.log("on cancel function does not exist")
+            return;
+        }
+        props.onCancel();
+    }
 
     return (
         <div>
@@ -148,7 +155,7 @@ const CreateEvent = (props) => {
                 create
             </Button>
             {' '}
-            <Button color="secondary" name="cancel" onClick={handleSubmit}>
+            <Button color="secondary" name="cancel" onClick={handleCancel}>
                 Cancel
             </Button>
         </div>

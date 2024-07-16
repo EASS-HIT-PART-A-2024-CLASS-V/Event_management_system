@@ -113,7 +113,7 @@ async def read_event_by_user(user_id: str):
     return event
 
 ####################################################################################
-@app.post('/api/events/', response_model=Event)
+@app.post('/api/events/create', response_model=Event)
 async def create_event(event: Event):
     return add_event(event)
 

@@ -145,11 +145,9 @@ def get_event_by_id(event_id: str) -> Optional[Event]:
 ##############################################################
 def get_events_by_user_id(user_id: str) -> List[Event]:
     user_events = []
-    for participant in participants:
-        if participant.user_id == user_id:
-            event = next((e for e in events if e.id == participant.event_id), None)
-            if event:
-                user_events.append(event)
+    for event in events:
+        if (user_id == event.created_by):
+            user_events.append(event)
     return user_events
 
 ##############################################################
@@ -167,7 +165,7 @@ def add_event(event_data: Event) -> Event:
     return event_data
 
 ##############################################################
-def delete_event(event_id: str) -> bool:
+def deleted_event(event_id: str) -> bool:
     for i, event in enumerate(events):
         if event.id == event_id:
             del events[i]
@@ -201,7 +199,7 @@ def add_participant(participant_data: Participant) -> Participant:
     return participant_data
 
 ##############################################################
-def delete_participant(participant_id: str) -> bool:
+def deleted_participant(participant_id: str) -> bool:
     for i, participant in enumerate(participants):
         if participant._id == participant_id:
             del participants[i]
@@ -235,7 +233,7 @@ def add_invitation(invitation_data: Invitation) -> Invitation:
     return invitation_data
 
 ##############################################################
-def delete_invitation(invitation_id: str) -> bool:
+def deleted_invitation(invitation_id: str) -> bool:
     for i, invitation in enumerate(invitations):
         if invitation.id == invitation_id:
             del invitations[i]

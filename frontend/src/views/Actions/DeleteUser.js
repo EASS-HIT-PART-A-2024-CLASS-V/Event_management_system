@@ -13,7 +13,6 @@ const DeleteUser = (props) => {
         }
         try {
             setIsDeleting(true);
-            console.log(typeof (props.userId), props.userId)
             const response = await Api.deleteUser(props.userId);
             setIsDeleting(false);
             console.log('User deleted successfully:', response);

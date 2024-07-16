@@ -20,8 +20,7 @@ const Login = (props) => {
                 message = "User does not exist"
             }
             else {
-                let parsed_id = JSON.parse(responseUserId)
-                props.onLogin(parsed_id);
+                props.onLogin(responseUserId);
                 message = "you have logged in succesfully"
             }
             setMessage(message)

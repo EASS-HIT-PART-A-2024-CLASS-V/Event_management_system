@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 import CreateEvent from './CreateEvent';
 
@@ -12,9 +12,9 @@ const CreateEventModal = (props) => {
         toggle()
     }
 
-    const handleCreateEvent = (event) => {
+    const handleCreateEvent = () => {
         if (props.onCreate)
-            props.onCreate(event)
+            props.onCreate()
         toggle()
     }
 
@@ -25,16 +25,8 @@ const CreateEventModal = (props) => {
                 <Modal isOpen={showModal} toggle={toggle} size="lg">
                     <ModalHeader>Create a new Event</ModalHeader>
                     <ModalBody>
-                        <CreateEvent onSubmit={handleCreateEvent} userId={props.userId} />
+                        <CreateEvent onSubmit={handleCreateEvent} userId={props.userId} onCancel={toggle} />
                     </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={toggle}>
-                            Do Something
-                        </Button>{' '}
-                        <Button color="secondary" onClick={toggle}>
-                            Cancel
-                        </Button>
-                    </ModalFooter>
                 </Modal>
             }
         </span>

@@ -19,7 +19,7 @@ const Profile = (props) => {
     const fetchUser = async (userId) => {
         try {
             const userData = await Api.getUserById(userId);
-            setUser(JSON.parse(userData));
+            setUser(userData);
             setFetchMessage('User data fetched successfully.');
         } catch (error) {
             console.error('Error fetching user:', error);

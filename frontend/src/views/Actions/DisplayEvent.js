@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import Api from './Api'; // Import your Api module
+import Api from '../../Api/Api';
 
 const DisplayEvent = ({ eventId }) => {
     const [event, setEvent] = useState(null);
@@ -8,7 +8,8 @@ const DisplayEvent = ({ eventId }) => {
     const [formData, setFormData] = useState({
         title: '',
         description: '',
-        date: '',
+        start: '',
+        end: '',
         location: '',
         // Add more fields as per your event structure
     });
@@ -21,7 +22,8 @@ const DisplayEvent = ({ eventId }) => {
                 setFormData({
                     title: eventData.title,
                     description: eventData.description,
-                    date: eventData.date,
+                    start: eventData.start,
+                    end: eventData.end,
                     location: eventData.location,
                     // Set more fields here
                 });
@@ -44,7 +46,8 @@ const DisplayEvent = ({ eventId }) => {
         setFormData({
             title: event.title,
             description: event.description,
-            date: event.date,
+            start: event.start,
+            end: event.end,
             location: event.location,
             // Set more fields here
         });
@@ -101,12 +104,22 @@ const DisplayEvent = ({ eventId }) => {
                         />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="date">Date</Label>
+                        <Label for="start">Start Date</Label>
                         <Input
-                            type="date"
-                            name="date"
-                            id="date"
-                            value={formData.date}
+                            type="datetime-local" // Use datetime-local for date and time input
+                            name="start"
+                            id="start"
+                            value={formData.start}
+                            onChange={handleChange}
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="end">End Date</Label>
+                        <Input
+                            type="datetime-local" // Use datetime-local for date and time input
+                            name="end"
+                            id="end"
+                            value={formData.end}
                             onChange={handleChange}
                         />
                     </FormGroup>
@@ -133,7 +146,8 @@ const DisplayEvent = ({ eventId }) => {
                 <div>
                     <h2>{event.title}</h2>
                     <p>Description: {event.description}</p>
-                    <p>Date: {event.date}</p>
+                    <p>Start Date: {new Date(event.start).toLocaleString()}</p>
+                    <p>End Date: {new Date(event.end).toLocaleString()}</p>
                     <p>Location: {event.location}</p>
                     {/* Display more fields as needed */}
                     <Button color="info" onClick={handleEdit}>

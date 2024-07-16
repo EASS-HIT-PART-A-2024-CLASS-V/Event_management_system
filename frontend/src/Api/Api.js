@@ -161,6 +161,7 @@ const getEventByUserId = async (userId) => {
 
 const createEvent = async (event) => {
     try {
+
         const response = await fetch(`${BASE_URL}/api/events/create`, {
             method: 'POST',
             headers: {
@@ -389,114 +390,95 @@ const Api = {
 
     getAllUsers: async () => {
         let data = await getAllUsers()
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     getUserById: async (userId) => {
         let data = await getUserById(userId)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     getUserAuth: async (username, password) => {
         let data = await getUserAuth(username, password)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     createUser: async (user) => {
-        console.log(typeof (user), user)
         let data = await createUser(user)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     updateUser: async (userId, user) => {
         let data = await updateUser(userId, user)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     deleteUser: async (userId) => {
         let data = await deleteUser(userId)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
     ///events/////////////////////////////////////////////////////////////////
 
     getAllEvents: async () => {
         let data = await getAllEvents()
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     getEventById: async (eventId) => {
         let data = await getEventById(eventId)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     getEventByUserId: async (userId) => {
         let data = await getEventByUserId(userId)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     createEvent: async (event) => {
         let data = await createEvent(event)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     updateEvent: async (eventId, event) => {
         let data = await updateEvent(eventId, event)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     deleteEvent: async (eventId) => {
         let data = await deleteEvent(eventId)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
     ///participants/////////////////////////////////////////////////////////////////
 
     getAllParticipants: async () => {
         let data = await getAllParticipants()
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     getParticipantById: async (participantId) => {
         let data = await getParticipantById(participantId)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     createParticipant: async (participant) => {
         let data = await createParticipant(participant)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     updateParticipant: async (participantId, participant) => {
         let data = await updateParticipant(participantId, participant)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     deleteParticipant: async (participantId) => {
         let data = await deleteParticipant(participantId)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
     ///invitations/////////////////////////////////////////////////////////////////
 
     getAllInvitations: async () => {
         let data = await getAllInvitations()
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     getInvitationById: async (invitationId) => {
@@ -507,20 +489,17 @@ const Api = {
 
     createInvitation: async (invitation) => {
         let data = await createInvitation(invitation)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     updateInvitation: async (invitationId, invitation) => {
         let data = await updateInvitation(invitationId, invitation)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 
     deleteInvitation: async (invitationId) => {
         let data = await deleteInvitation(invitationId)
-        let jsonString = JSON.stringify(data)
-        return jsonString
+        return data
     },
 };
 export default Api;
