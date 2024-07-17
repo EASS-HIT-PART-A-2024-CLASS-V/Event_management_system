@@ -1,13 +1,14 @@
 import React from 'react';
+import './Contact.css'; // Import CSS for Contact component
 
 const Contact = () => {
     return (
-        <div>
+        <div className="contact-container">
             <h2>Contact</h2>
             <p>
                 Have questions or need assistance? Feel free to reach out!
             </p>
-            <table>
+            <table className="contact-table">
                 <tbody>
                     <tr>
                         <td style={{ paddingRight: '1rem' }}><strong>Name:</strong></td>

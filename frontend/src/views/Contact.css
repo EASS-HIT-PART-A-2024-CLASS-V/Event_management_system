@@ -1,0 +1,28 @@
+/* Contact.css */
+
+.contact-container {
+    margin: 20px auto;
+    padding: 20px;
+    width: 60%;
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .contact-table td {
+        padding: 10px;
+        border: 1px solid #dddddd;
+        text-align: left;
+    }
+
+    .contact-table strong {
+        font-weight: bold;
+    }

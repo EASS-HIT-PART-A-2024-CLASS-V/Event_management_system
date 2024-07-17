@@ -94,7 +94,8 @@ def add_user(user_data: User) -> User:
 
 #############################################################################
 def deleted_user(user_id: str) -> bool:
-    result = users_collection.delete_one({"_id": user_id})
+    object_id = ObjectId(user_id)
+    result = users_collection.delete_one({"_id": object_id})
     return result.deleted_count > 0
 
 #############################################################################
@@ -145,7 +146,8 @@ def add_event(event_data: Event) -> Event:
 
 #############################################################################
 def deleted_event(event_id: str) -> bool:
-    result = events_collection.delete_one({"_id": event_id})
+    object_id = ObjectId(event_id)
+    result = events_collection.delete_one({"_id": object_id})
     return result.deleted_count > 0
 
 #############################################################################
@@ -158,14 +160,16 @@ def get_all_participants() -> List[Participant]:
 
 #############################################################################
 def get_participant_by_id(participant_id: str) -> Optional[Participant]:
-    participant = participants_collection.find_one({"_id": participant_id})
+    object_id = ObjectId(participant_id)
+    participant = participants_collection.find_one({"_id": object_id})
     if participant is None:
         return None;
     return deserialize_participant(participant)
 
 #############################################################################
 def set_participant(participant_id: str, participant_data: Participant) -> Optional[Participant]:
-    result = participants_collection.replace_one({"_id": participant_id}, serialize_participant(participant_data))
+    object_id = ObjectId(participant_id)
+    result = participants_collection.replace_one({"_id": object_id}, serialize_participant(participant_data))
     return participant_data if result.modified_count > 0 else None
 
 #############################################################################
@@ -176,6 +180,7 @@ def add_participant(participant_data: Participant) -> Participant:
 
 #############################################################################
 def deleted_participant(participant_id: str) -> bool:
+    object_id = ObjectId(participant_id)
     result = participants_collection.delete_one({"_id": participant_id})
     return result.deleted_count > 0
 
@@ -189,13 +194,15 @@ def get_all_invitations() -> List[Invitation]:
 
 #############################################################################
 def get_invitation_by_id(invitation_id: str) -> Optional[Invitation]:
-    invitation = invitations_collection.find_one({"_id": invitation_id})
+    object_id = ObjectId(invitation_id)
+    invitation = invitations_collection.find_one({"_id": object_id})
     if invitation is None:
         return None;
     return deserialize_invitation(invitation)
 
 #############################################################################
 def set_invitation(invitation_id: str, invitation_data: Invitation) -> Optional[Invitation]:
+    object_id = ObjectId(invitation_id)
     result = invitations_collection.replace_one({"_id": invitation_id}, serialize_invitation(invitation_data))
     return invitation_data if result.modified_count > 0 else None
 
@@ -207,5 +214,6 @@ def add_invitation(invitation_data: Invitation) -> Invitation:
 
 #############################################################################
 def deleted_invitation(invitation_id: str) -> bool:
+    object_id = ObjectId(invitation_id)
     result = invitations_collection.delete_one({"_id": invitation_id})
     return result.deleted_count > 0

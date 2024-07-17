@@ -125,13 +125,13 @@ const Profile = (props) => {
                 />
                 <button onClick={handleUpdateProfile}>Update Profile</button>
                 <p>{updateMessage}</p>
-            </div>
-            <div>
-                <DeleteUserModal userId={props.userId} onDelete={handleDelete} ></DeleteUserModal>
-            </div>
+            </div>            
             <div className="profile-messages">
                 <h3>Fetch Message</h3>
                 <p>{fetchMessage}</p>
+            </div>
+            <div>
+                <DeleteUserModal userId={props.userId} onDelete={handleDelete} ></DeleteUserModal>
             </div>
         </div>
     );

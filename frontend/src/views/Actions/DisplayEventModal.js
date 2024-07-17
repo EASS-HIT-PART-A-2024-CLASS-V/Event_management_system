@@ -28,7 +28,7 @@ const DisplayEventModal = ({ eventId, onClose }) => {
 
     return (
         <span>
-            <Button type="button" className="float-right" size="sm" color="info" onClick={toggle}>
+            <Button type="button" className="float-right" size="xl" color="info" onClick={toggle}>
                 View Event
             </Button>
             <Modal isOpen={showModal} toggle={toggle} size="lg">

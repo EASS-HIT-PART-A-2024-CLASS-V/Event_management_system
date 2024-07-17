@@ -1,0 +1,61 @@
+/* About.css */
+
+/* Container styles */
+.about-container {
+	padding: 50px 0; /* Add vertical padding */
+	background-color: #f8f9fa; /* Light background color */
+}
+
+/* Heading styles */
+.about-heading {
+	text-align: center;
+	font-size: 2.5rem;
+	margin-bottom: 30px;
+	color: #343a40; /* Dark text color */
+	border-bottom: 2px solid #007bff; /* Underline with blue color */
+	padding-bottom: 10px; /* Space between text and underline */
+}
+
+/* Description styles */
+.about-description {
+	text-align: center;
+	font-size: 1.2rem;
+	line-height: 1.6;
+	color: #6c757d; /* Medium text color */
+}
+
+/* Features section styles */
+.about-features {
+	margin-top: 50px;
+}
+
+	.about-features h3 {
+		font-size: 2rem;
+		color: #343a40; /* Dark text color */
+	}
+
+	.about-features ul {
+		list-style-type: disc;
+		margin-left: 20px;
+		font-size: 1.1rem;
+		line-height: 1.6;
+		color: #6c757d; /* Medium text color */
+	}
+
+/* Join section styles */
+.about-join {
+	text-align: center;
+	font-size: 1.2rem;
+	line-height: 1.6;
+	color: #6c757d; /* Medium text color */
+	margin-top: 50px;
+}
+
+/* Conclusion section styles */
+.about-conclusion {
+	text-align: center;
+	font-size: 1.2rem;
+	line-height: 1.6;
+	color: #6c757d; /* Medium text color */
+	margin-top: 50px;
+}

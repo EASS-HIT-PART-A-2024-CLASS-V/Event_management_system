@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import moment from 'moment';
-
 import Api from '../../Api/Api';
+import './DisplayEvent.css'; // Import your CSS file
 
 const DisplayEvent = ({ eventId, onChange, onCancel }) => {
     const [eventDetails, setEventDetails] = useState(null);
@@ -73,7 +73,7 @@ const DisplayEvent = ({ eventId, onChange, onCancel }) => {
     }
 
     return (
-        <div>
+        <div className="display-event-container">
             {editMode ? (
                 <Form onSubmit={handleSubmit}>
                     <FormGroup>
@@ -130,7 +130,7 @@ const DisplayEvent = ({ eventId, onChange, onCancel }) => {
                     <Button type="submit" color="primary">
                         Save Changes
                     </Button>{' '}
-                    <Button color="secondary" onClick={() => { setEditMode(false); } }>
+                    <Button color="secondary" onClick={handleCancel}>
                         Cancel
                     </Button>
                 </Form>
@@ -142,7 +142,7 @@ const DisplayEvent = ({ eventId, onChange, onCancel }) => {
                     <p>End Date: {moment(eventDetails.end_time).format('MMMM Do YYYY, h:mm a')}</p>
                     <p>Location: {eventDetails.location}</p>
 
-                    <Button color="info" onClick={handleEdit}>
+                    <Button color="info" className="edit-button" onClick={handleEdit}>
                         Edit Event
                     </Button>
                     {/* Example for InviteUsersModal component */}

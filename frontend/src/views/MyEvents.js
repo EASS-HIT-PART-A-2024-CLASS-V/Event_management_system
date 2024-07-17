@@ -5,14 +5,16 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import DisplayEventModal from './Actions/DisplayEventModal';
 import CreateEventModal from './Actions/CreateEventModal';
-import Api from '../Api/Api'; 
+import Api from '../Api/Api';
+
+import './MyEvents.css'; // Import CSS for MyEvents component
 
 const localizer = momentLocalizer(moment);
 
 const MyEvents = (props) => {
     const [view, setView] = useState('month'); // Default view is month
-    const [eventsDisplay, setEventsDisplay] = useState([])
-    const [change, setChange] = useState(0)
+    const [eventsDisplay, setEventsDisplay] = useState([]);
+    const [change, setChange] = useState(0);
     const [selectedEvent, setSelectedEvent] = useState(null);
 
     useEffect(() => {
@@ -51,12 +53,12 @@ const MyEvents = (props) => {
     };
 
     const handleEventsChanged = () => {
-        setChange(change + 1)
-    }
+        setChange(change + 1);
+    };
 
     const handleEventClick = (event) => {
         setSelectedEvent(event);
-    }
+    };
 
     const handleModalClose = (is_changed) => {
         if (is_changed) {
@@ -66,10 +68,10 @@ const MyEvents = (props) => {
     };
 
     return (
-        <div>
-            <h2>My Events</h2>
-            <CreateEventModal onCreate={handleEventsChanged} userId={props.userId} />            
-            <div style={{ height: '600px' }}>
+        <div className="my-events-container">
+            <h2 className="my-events-heading">My Events</h2>
+            <CreateEventModal onCreate={handleEventsChanged} userId={props.userId} />
+            <div className="calendar-container">
                 <Calendar
                     localizer={localizer}
                     events={eventsDisplay}
@@ -79,6 +81,7 @@ const MyEvents = (props) => {
                     view={view}
                     onView={handleViewChange}
                     onSelectEvent={handleEventClick}
+                    className="calendar"
                 />
             </div>
             {selectedEvent && (<DisplayEventModal eventId={selectedEvent.id} onClose={handleModalClose} />)}

@@ -1,0 +1,22 @@
+/* DisplayEvent.css */
+
+.display-event-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+    .display-event-container h2 {
+        margin-bottom: 10px;
+    }
+
+    .display-event-container p {
+        margin-bottom: 8px;
+    }
+
+    .display-event-container .edit-button {
+        margin-top: 10px;
+    }
