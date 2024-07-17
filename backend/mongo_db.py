@@ -24,41 +24,43 @@ invitations_collection = db['invitations']
 
 # Helper functions
 def serialize_user(user: User) -> dict:
-    return user.dict()
+    return user.model_dump()
 
 def deserialize_user(data: dict) -> User:
-    return User(**data)
+    return User.from_dict(data)
 
 def serialize_event(event: Event) -> dict:
-    return event.dict()
+    return event.model_dump()
 
 def deserialize_event(data: dict) -> Event:
-    return Event(**data)
+    return Event.from_dict(data)
 
 def serialize_participant(participant: Participant) -> dict:
-    return participant.dict()
+    return participant.model_dump()
 
 def deserialize_participant(data: dict) -> Participant:
-    return Participant(**data)
+    return Participant.from_dict(data)
 
 def serialize_invitation(invitation: Invitation) -> dict:
-    return invitation.dict()
+    return invitation.model_dump()
 
 def deserialize_invitation(data: dict) -> Invitation:
-    return Invitation(**data)
+    return Invitation.from_dict(data)
 
 # User functions
 def get_all_users() -> List[User]:
-    users = users_collection.find()
+    users = users_collection.find({})
     return [deserialize_user(user) for user in users]
 
 def get_user_by_id(user_id: str) -> Optional[User]:
-    user = users_collection.find_one({"_id": user_id})
+    user = users_collection.find_one({"id": user_id})
+    user_deserialized = deserialize_user(user)
     return deserialize_user(user) if user else None
 
 def get_user_by_credentials(username: str, password: str) -> str:
     user = users_collection.find_one({"username": username, "password_hash": password})
-    return user["_id"] if user else -1
+    user_deserialized = deserialize_user(user)
+    return user_deserialized.id if user_deserialized else '-1'
 
 def set_user(user_id: str, user_data: User) -> Optional[User]:
     result = users_collection.replace_one({"_id": user_id}, serialize_user(user_data))
@@ -86,6 +88,7 @@ def get_events_by_user_id(user_id: str) -> List[Event]:
     return [deserialize_event(event) for event in events]
 
 def set_event(event_id: str, event_data: Event) -> Optional[Event]:
+    print(serialize_event(event_data))
     result = events_collection.replace_one({"_id": event_id}, serialize_event(event_data))
     return event_data if result.modified_count > 0 else None
 

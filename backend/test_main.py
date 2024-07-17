@@ -11,6 +11,7 @@ def test_home():
 
 def test_read_users():
     response = client.get('api/users/')
+    print (111111111111111111, response)
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
@@ -69,7 +70,7 @@ def test_create_event():
         "is_open": True,
         "created_at": "2024-06-30T07:09:35.330Z"
     }
-    response = client.post('api/events/', json=new_event)
+    response = client.post('api/events/create', json=new_event)
     print(response.json())  # Added for debugging
     assert response.status_code == 200
     response_data = response.json()

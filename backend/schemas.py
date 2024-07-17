@@ -13,8 +13,20 @@ class User(BaseModel):
     created_at: Optional[datetime] = None
 
     class ConfigDict:
-        populate_by_name = True
+        populate_by_name  = True
         json_encoders = {ObjectId: str}
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        # Convert ObjectId to str for _id field
+        if '_id' in data and isinstance(data['_id'], ObjectId):
+            data['_id'] = str(data['_id'])
+        # Convert datetime strings to datetime objects
+        for field in ['created_at']:
+            if field in data and isinstance(data[field], str):
+                data[field] = datetime.fromisoformat(data[field])
+        return cls(**data)
+
 
 ##############################################################
 class Event(BaseModel):
@@ -29,8 +41,20 @@ class Event(BaseModel):
     created_at: Optional[datetime] = None
 
     class ConfigDict:
-        populate_by_name = True
+        populate_by_name  = True
         json_encoders = {ObjectId: str}
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        # Convert ObjectId to str for _id field
+        if '_id' in data and isinstance(data['_id'], ObjectId):
+            data['_id'] = str(data['_id'])
+        # Convert datetime strings to datetime objects
+        for field in ['start_time', 'end_time', 'created_at']:
+            if field in data and isinstance(data[field], str):
+                data[field] = datetime.fromisoformat(data[field])
+        return cls(**data)
+
 
 ##############################################################
 class Participant(BaseModel):
@@ -40,8 +64,17 @@ class Participant(BaseModel):
     joined_at: Optional[datetime] = None
         
     class ConfigDict:
-        populate_by_name = True
+        populate_by_name  = True
         json_encoders = {ObjectId: str}
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        # Convert ObjectId to str for _id field
+        data['_id'] = str(data.get('_id'))
+        # Convert datetime strings to datetime objects
+        if isinstance(data.get('joined_at'), str):
+            data['joined_at'] = datetime.fromisoformat(data['joined_at'])
+        return cls(**data)
 
 ##############################################################
 class Invitation(BaseModel):
@@ -54,9 +87,19 @@ class Invitation(BaseModel):
     responded_at: Optional[datetime] = None
 
     class ConfigDict:
-        populate_by_name = True
+        populate_by_name  = True
         json_encoders = {ObjectId: str}
-   
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        # Convert ObjectId to str for _id field
+        data['_id'] = str(data.get('_id'))
+        # Convert datetime strings to datetime objects
+        if isinstance(data.get('sent_at'), str):
+            data['sent_at'] = datetime.fromisoformat(data['sent_at'])
+        if isinstance(data.get('responded_at'), str):
+            data['responded_at'] = datetime.fromisoformat(data['responded_at'])
+        return cls(**data)
 
 ##############################################################
 class AuthRequest(BaseModel):

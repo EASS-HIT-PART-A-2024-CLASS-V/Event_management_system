@@ -14,13 +14,13 @@ const Login = (props) => {
         try {
             let responseUserId = await Api.getUserAuth(username, password);
             let message = ""
-
-            if (responseUserId === "-1") {
-                message = "User does not exist"
+        
+            if (responseUserId !== "-1"){
+                props.onLogin(responseUserId);
+                message = "you have logged in succesfully"                
             }
             else {
-                props.onLogin(responseUserId);
-                message = "you have logged in succesfully"
+                message = "User does not exist"
             }
             setMessage(message)
         }

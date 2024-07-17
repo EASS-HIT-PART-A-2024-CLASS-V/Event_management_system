@@ -36,9 +36,6 @@ const Navigation = () => {
                             <Link to="/MyEvents">MyEvents</Link>
                         </li>
                         <li>
-                            <Link to="/Login">Login</Link>
-                        </li>         
-                        <li>
                             <Link to="/about">About</Link>
                         </li>
                         <li>
@@ -58,8 +55,8 @@ const Navigation = () => {
             <Routes>
                 <Route path="/About" element={<About />} />
                 <Route path="/Contact" element={<Contact />} />
-                <Route path="/" element={<Home />} />
-                <Route path="*" element={<Home />} />
+                <Route path="/" element={<Login onLogin={handleLogIn} />} />
+                <Route path="*" element={<Login onLogin={handleLogIn} />} />
                 <Route path="Login" element={<Login onLogin={handleLogIn} />} />
                 <Route path="MyEvents" element={<MyEvents userId={userId} />} />
                 <Route path="Signup" element={<Signup />} />

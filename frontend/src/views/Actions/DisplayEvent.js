@@ -62,30 +62,33 @@ const DisplayEvent = (props) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+
+        if (name === 'start' || name === 'end') {
+            const formattedValue = moment(value).format('YYYY-MM-DDTHH:mm');
+            setFormData({
+                ...formData,
+                [name]: formattedValue,
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+        }
     };
 
     const transformEventForApi = (eventData) => {
-        const { id, title, start, end, description, location } = eventData;
+        const {title, start, end, description, location } = eventData;
 
         const start_time = moment(start).toISOString();
         const end_time = moment(end).toISOString();     
 
-        const created_by = "user_id_here"; 
-
         const formattedEvent = {
-            _id: id,
             title: title,
             description: description || null, 
             location: location || null,
             start_time: start_time,
-            end_time: end_time,
-            created_by: created_by,
-            is_open: true,
-            created_at: null 
+            end_time: end_time, 
         };
 
         return formattedEvent;
