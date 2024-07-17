@@ -1,115 +1,88 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import moment from 'moment';
+
 import Api from '../../Api/Api';
 
-const DisplayEvent = (props) => {
+const DisplayEvent = ({ eventId, onChange, onCancel }) => {
+    const [eventDetails, setEventDetails] = useState(null);
     const [editMode, setEditMode] = useState(false);
-    const [formData, setFormData] = useState({
-        title: props.event.title,
-        description: props.event.description,
-        start: props.event.start,
-        end: props.event.end,
-        location: props.event.location,
-    });
 
     useEffect(() => {
-        setFormData({
-            title: props.event.title,
-            description: props.event.description,
-            start: props.event.start,
-            end: props.event.end,
-            location: props.event.location,
-        });
-    }, [props.event]);
+        const fetchEvent = async () => {
+            try {
+                const event = await Api.getEventById(eventId);
+                setEventDetails({
+                    ...event,
+                    start: moment(event.start_time).format('YYYY-MM-DDTHH:mm'),
+                    end: moment(event.end_time).format('YYYY-MM-DDTHH:mm'),
+                });
+            } catch (error) {
+                console.error('Error fetching event:', error);
+            }
+        };
+
+        if (eventId) {
+            fetchEvent();
+        } else {
+            setEventDetails(null);
+        }
+    }, [eventId]);
 
     const handleEdit = () => {
         setEditMode(true);
     };
 
     const handleCancel = () => {
-        if (!props.onCancel) {
-            console.log("on cancel function does not exist")
-            return;
-        }
         setEditMode(false);
-        setFormData({
-            title: props.event.title,
-            description: props.event.description,
-            start: props.event.start,
-            end: props.event.end,
-            location: props.event.location,
+        setEventDetails({
+            ...eventDetails,
+            start: moment(eventDetails.start_time).format('YYYY-MM-DDTHH:mm'),
+            end: moment(eventDetails.end_time).format('YYYY-MM-DDTHH:mm'),
         });
-        props.onCancel();
+        onCancel && onCancel();
     };
 
     const handleSubmit = async (e) => {
-        if (!props.onChange) {
-            console.log("on change function does not exist")
-            return;
-        }
         e.preventDefault();
         try {
-            const transformedEvent = transformEventForApi(formData);
-            const updatedEvent = await Api.updateEvent(props.event._id, transformedEvent);
+            const transformedEvent = {
+                ...eventDetails,
+                start_time: moment(eventDetails.start).toISOString(),
+                end_time: moment(eventDetails.end).toISOString(),
+            };
+            const updatedEvent = await Api.updateEvent(eventId, transformedEvent); // Adjust API call as per your API
             console.log('Event updated successfully:', updatedEvent);
+            setEditMode(false);
+            onChange && onChange();
         } catch (error) {
             console.error('Error updating event:', error);
         }
-        setEditMode(false);
-        props.onChange()
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-
-        if (name === 'start' || name === 'end') {
-            const formattedValue = moment(value).format('YYYY-MM-DDTHH:mm');
-            setFormData({
-                ...formData,
-                [name]: formattedValue,
-            });
-        } else {
-            setFormData({
-                ...formData,
-                [name]: value,
-            });
-        }
+        setEventDetails({
+            ...eventDetails,
+            [name]: value,
+        });
     };
 
-    const transformEventForApi = (eventData) => {
-        const {title, start, end, description, location } = eventData;
-
-        const start_time = moment(start).toISOString();
-        const end_time = moment(end).toISOString();     
-
-        const formattedEvent = {
-            title: title,
-            description: description || null, 
-            location: location || null,
-            start_time: start_time,
-            end_time: end_time, 
-        };
-
-        return formattedEvent;
-    };
-
-
-    if (!props.event) {
-        return <div>Loading...</div>; 
+    if (!eventDetails) {
+        return <div>Loading...</div>;
     }
 
     return (
         <div>
             {editMode ? (
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <FormGroup>
                         <Label for="title">Title</Label>
                         <Input
                             type="text"
                             name="title"
                             id="title"
-                            value={formData.title}
+                            value={eventDetails.title}
                             onChange={handleChange}
                         />
                     </FormGroup>
@@ -119,27 +92,27 @@ const DisplayEvent = (props) => {
                             type="textarea"
                             name="description"
                             id="description"
-                            value={formData.description}
+                            value={eventDetails.description}
                             onChange={handleChange}
                         />
                     </FormGroup>
                     <FormGroup>
                         <Label for="start">Start Date</Label>
                         <Input
-                            type="datetime-local" 
+                            type="datetime-local"
                             name="start"
                             id="start"
-                            value={formData.start}
+                            value={eventDetails.start}
                             onChange={handleChange}
                         />
                     </FormGroup>
                     <FormGroup>
                         <Label for="end">End Date</Label>
                         <Input
-                            type="datetime-local" 
+                            type="datetime-local"
                             name="end"
                             id="end"
-                            value={formData.end}
+                            value={eventDetails.end}
                             onChange={handleChange}
                         />
                     </FormGroup>
@@ -149,30 +122,31 @@ const DisplayEvent = (props) => {
                             type="text"
                             name="location"
                             id="location"
-                            value={formData.location}
+                            value={eventDetails.location}
                             onChange={handleChange}
                         />
                     </FormGroup>
-                    {/* Add more fields as per your event structure */}
 
-                    <Button type="submit" color="primary" onClick={handleSubmit} >
+                    <Button type="submit" color="primary">
                         Save Changes
                     </Button>{' '}
-                    <Button color="secondary" onClick={handleCancel}>
+                    <Button color="secondary" onClick={() => { setEditMode(false); } }>
                         Cancel
                     </Button>
                 </Form>
             ) : (
                 <div>
-                        <h2>{props.event.title}</h2>
-                        <p>Description: {props.event.description}</p>
-                        <p>Start Date: {new Date(props.event.start).toLocaleString()}</p>
-                        <p>End Date: {new Date(props.event.end).toLocaleString()}</p>
-                        <p>Location: {props.event.location}</p>
-                    {/* Display more fields as needed */}
+                    <h2>{eventDetails.title}</h2>
+                    <p>Description: {eventDetails.description}</p>
+                    <p>Start Date: {moment(eventDetails.start_time).format('MMMM Do YYYY, h:mm a')}</p>
+                    <p>End Date: {moment(eventDetails.end_time).format('MMMM Do YYYY, h:mm a')}</p>
+                    <p>Location: {eventDetails.location}</p>
+
                     <Button color="info" onClick={handleEdit}>
                         Edit Event
                     </Button>
+                    {/* Example for InviteUsersModal component */}
+                    {/* <InviteUsersModal eventId={eventId} /> */}
                 </div>
             )}
         </div>

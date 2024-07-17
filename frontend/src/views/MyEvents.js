@@ -36,7 +36,7 @@ const MyEvents = (props) => {
 
     const transformEventsForCalendar = (events) => {
         return events.map(event => ({
-            id: event._id,
+            id: event.id,
             title: event.title,
             start: new Date(event.start_time),
             end: new Date(event.end_time),
@@ -81,7 +81,7 @@ const MyEvents = (props) => {
                     onSelectEvent={handleEventClick}
                 />
             </div>
-            {selectedEvent && (<DisplayEventModal event={selectedEvent} onClose={handleModalClose} />)}
+            {selectedEvent && (<DisplayEventModal eventId={selectedEvent.id} onClose={handleModalClose} />)}
         </div>
     );
 };

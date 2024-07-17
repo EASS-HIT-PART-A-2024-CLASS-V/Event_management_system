@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Api from '../Api/Api';
 import './Signup.css';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
     const [username, setUsername] = useState('');
@@ -10,6 +11,7 @@ const Signup = () => {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleSignup = async (e) => {
         e.preventDefault();
@@ -25,6 +27,7 @@ const Signup = () => {
 
             if (response) {
                 setMessage('User successfully registered!');
+                navigate("/MyEvents");
             } else {
                 setMessage('Failed to register user. Please try again.');
             }

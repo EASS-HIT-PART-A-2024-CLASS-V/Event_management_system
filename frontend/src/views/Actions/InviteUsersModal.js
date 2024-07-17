@@ -9,7 +9,7 @@ const InviteUsersModal = ({ eventId }) => {
 
     return (
         <span>
-            <Button type="button" className="float-right" size="sm" color="info" onClick={toggle}>
+            <Button type="button" className="float-right" size="sm" color="secondary" onClick={toggle}>
                 Invite Users
             </Button>
             <Modal isOpen={showModal} toggle={toggle} size="lg">

@@ -11,7 +11,6 @@ def test_home():
 
 def test_read_users():
     response = client.get('api/users/')
-    print (111111111111111111, response)
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 

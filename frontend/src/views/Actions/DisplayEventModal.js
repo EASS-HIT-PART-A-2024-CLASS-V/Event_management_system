@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import DisplayEvent from './DisplayEvent'; 
 
-const DisplayEventModal = ({ event, onClose }) => {
+const DisplayEventModal = ({ eventId, onClose }) => {
     const [showModal, setShowModal] = useState(false);
 
     const toggle = () => setShowModal(!showModal);
 
     useEffect(() => {
-        console.log(event)
-    }, [event])
+    }, [eventId])
 
     const handleChanges = () => {
         if (!onClose) {
@@ -35,7 +34,7 @@ const DisplayEventModal = ({ event, onClose }) => {
             <Modal isOpen={showModal} toggle={toggle} size="lg">
                 <ModalHeader>Event Details</ModalHeader>
                 <ModalBody>
-                    <DisplayEvent event={event} onCancel={handleCancel } onChange={handleChanges} />
+                    <DisplayEvent eventId={eventId} onCancel={handleCancel} onChange={handleChanges} />
                 </ModalBody>
                 <ModalFooter>
                     <Button color="secondary" onClick={toggle} >

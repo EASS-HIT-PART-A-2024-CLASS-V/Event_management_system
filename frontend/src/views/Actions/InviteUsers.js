@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Button, ListGroup, ListGroupItem } from 'reactstrap';
-import Api from './Api'; // Import your Api module
+import Api from '../../Api/Api';
 
 const InviteUsers = ({ eventId }) => {
     const [users, setUsers] = useState([]);

@@ -1,63 +1,56 @@
 import React, { useState } from 'react';
-import Api from '../Api/Api'; 
+import { useNavigate } from 'react-router-dom';
+import Api from '../Api/Api';
+import './Login.css'; // Assuming you will create a CSS file for styling
 
 const Login = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("User does not exist");
+    const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         if (!props.onLogin) {
-            console.log("handlelogin function does not exist")
+            console.log("handleLogin function does not exist");
             return;
         }
         try {
-            let responseUserId = await Api.getUserAuth(username, password);
-            let message = ""
-        
-            if (responseUserId !== "-1"){
+            const responseUserId = await Api.getUserAuth(username, password);
+            if (responseUserId !== "-1") {
                 props.onLogin(responseUserId);
-                message = "you have logged in succesfully"                
+                setMessage("You have logged in successfully.");
+                navigate("/MyEvents");
+            } else {
+                setMessage("User does not exist.");
             }
-            else {
-                message = "User does not exist"
-            }
-            setMessage(message)
-        }
-        catch (error) {
+        } catch (error) {
             console.error('Error fetching or processing users:', error);
+            setMessage("An error occurred while trying to log in.");
         }
     };
 
     return (
-        <div>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Username:</td>
-                        <td>
-                            <input
-                                type="text"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Password:</td>
-                        <td>
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <strong>{message}</strong>
-            <div>
-                <button onClick={handleLogin}>Login</button>
+        <div className="login-container">
+            <h2>Login</h2>
+            <div className="login-form">
+                <div className="form-group">
+                    <label>Username:</label>
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Password:</label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+                {message && <strong className="message">{message}</strong>}
+                <button onClick={handleLogin} className="login-button">Login</button>
                 <p>Not signed up yet? <a href="/Signup">Sign up here!</a></p>
             </div>
         </div>

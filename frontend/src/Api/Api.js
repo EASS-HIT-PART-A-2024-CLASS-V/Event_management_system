@@ -161,7 +161,6 @@ const getEventByUserId = async (userId) => {
 
 const createEvent = async (event) => {
     try {
-
         const response = await fetch(`${BASE_URL}/api/events/create`, {
             method: 'POST',
             headers: {
