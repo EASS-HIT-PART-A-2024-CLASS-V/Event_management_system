@@ -1,70 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import moment from 'moment';
 import Api from '../../Api/Api';
 
-const DisplayEvent = ({ eventId }) => {
-    const [event, setEvent] = useState(null);
+const DisplayEvent = (props) => {
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        start: '',
-        end: '',
-        location: '',
-        // Add more fields as per your event structure
+        title: props.event.title,
+        description: props.event.description,
+        start: props.event.start,
+        end: props.event.end,
+        location: props.event.location,
     });
 
     useEffect(() => {
-        const fetchEvent = async () => {
-            try {
-                const eventData = await Api.getEventById(eventId);
-                setEvent(eventData);
-                setFormData({
-                    title: eventData.title,
-                    description: eventData.description,
-                    start: eventData.start,
-                    end: eventData.end,
-                    location: eventData.location,
-                    // Set more fields here
-                });
-            } catch (error) {
-                console.error('Error fetching event:', error);
-                // Handle error (e.g., show error message)
-            }
-        };
-
-        fetchEvent();
-    }, [eventId]);
+        setFormData({
+            title: props.event.title,
+            description: props.event.description,
+            start: props.event.start,
+            end: props.event.end,
+            location: props.event.location,
+        });
+    }, [props.event]);
 
     const handleEdit = () => {
         setEditMode(true);
     };
 
     const handleCancel = () => {
+        if (!props.onCancel) {
+            console.log("on cancel function does not exist")
+            return;
+        }
         setEditMode(false);
-        // Reset form data to original event data
         setFormData({
-            title: event.title,
-            description: event.description,
-            start: event.start,
-            end: event.end,
-            location: event.location,
-            // Set more fields here
+            title: props.event.title,
+            description: props.event.description,
+            start: props.event.start,
+            end: props.event.end,
+            location: props.event.location,
         });
+        props.onCancel();
     };
 
     const handleSubmit = async (e) => {
+        if (!props.onChange) {
+            console.log("on change function does not exist")
+            return;
+        }
         e.preventDefault();
-        // Perform update API call here with formData
         try {
-            const updatedEvent = await Api.updateEvent(eventId, formData);
+            const transformedEvent = transformEventForApi(formData);
+            const updatedEvent = await Api.updateEvent(props.event._id, transformedEvent);
             console.log('Event updated successfully:', updatedEvent);
-            // Optionally, you can update local state or handle success feedback
         } catch (error) {
             console.error('Error updating event:', error);
-            // Handle error (e.g., show error message)
         }
         setEditMode(false);
+        props.onChange()
     };
 
     const handleChange = (e) => {
@@ -75,14 +68,38 @@ const DisplayEvent = ({ eventId }) => {
         });
     };
 
-    if (!event) {
-        return <div>Loading...</div>; // or any loading indicator
+    const transformEventForApi = (eventData) => {
+        const { id, title, start, end, description, location } = eventData;
+
+        const start_time = moment(start).toISOString();
+        const end_time = moment(end).toISOString();     
+
+        const created_by = "user_id_here"; 
+
+        const formattedEvent = {
+            _id: id,
+            title: title,
+            description: description || null, 
+            location: location || null,
+            start_time: start_time,
+            end_time: end_time,
+            created_by: created_by,
+            is_open: true,
+            created_at: null 
+        };
+
+        return formattedEvent;
+    };
+
+
+    if (!props.event) {
+        return <div>Loading...</div>; 
     }
 
     return (
         <div>
             {editMode ? (
-                <Form onSubmit={handleSubmit}>
+                <Form>
                     <FormGroup>
                         <Label for="title">Title</Label>
                         <Input
@@ -106,7 +123,7 @@ const DisplayEvent = ({ eventId }) => {
                     <FormGroup>
                         <Label for="start">Start Date</Label>
                         <Input
-                            type="datetime-local" // Use datetime-local for date and time input
+                            type="datetime-local" 
                             name="start"
                             id="start"
                             value={formData.start}
@@ -116,7 +133,7 @@ const DisplayEvent = ({ eventId }) => {
                     <FormGroup>
                         <Label for="end">End Date</Label>
                         <Input
-                            type="datetime-local" // Use datetime-local for date and time input
+                            type="datetime-local" 
                             name="end"
                             id="end"
                             value={formData.end}
@@ -135,7 +152,7 @@ const DisplayEvent = ({ eventId }) => {
                     </FormGroup>
                     {/* Add more fields as per your event structure */}
 
-                    <Button type="submit" color="primary">
+                    <Button type="submit" color="primary" onClick={handleSubmit} >
                         Save Changes
                     </Button>{' '}
                     <Button color="secondary" onClick={handleCancel}>
@@ -144,11 +161,11 @@ const DisplayEvent = ({ eventId }) => {
                 </Form>
             ) : (
                 <div>
-                    <h2>{event.title}</h2>
-                    <p>Description: {event.description}</p>
-                    <p>Start Date: {new Date(event.start).toLocaleString()}</p>
-                    <p>End Date: {new Date(event.end).toLocaleString()}</p>
-                    <p>Location: {event.location}</p>
+                        <h2>{props.event.title}</h2>
+                        <p>Description: {props.event.description}</p>
+                        <p>Start Date: {new Date(props.event.start).toLocaleString()}</p>
+                        <p>End Date: {new Date(props.event.end).toLocaleString()}</p>
+                        <p>Location: {props.event.location}</p>
                     {/* Display more fields as needed */}
                     <Button color="info" onClick={handleEdit}>
                         Edit Event

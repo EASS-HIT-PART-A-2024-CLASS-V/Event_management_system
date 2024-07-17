@@ -11,24 +11,20 @@ const localizer = momentLocalizer(moment);
 
 const MyEvents = (props) => {
     const [view, setView] = useState('month'); // Default view is month
-    const [events, setEvents] = useState([])
     const [eventsDisplay, setEventsDisplay] = useState([])
     const [change, setChange] = useState(0)
     const [selectedEvent, setSelectedEvent] = useState(null);
 
     useEffect(() => {
-        console.log("provoked")
         const fetchEventsByUserId = async () => {
             try {
                 if (props.userId === "-1") {
                     console.log("Please make sure to log in to see your events");
-                    setEvents([]);
                     return;
                 }
 
                 const fetchedEvents = await Api.getEventByUserId(props.userId);
                 const transformedEvents = transformEventsForCalendar(fetchedEvents);
-                setEvents(fetchedEvents);
                 setEventsDisplay(transformedEvents);
             } catch (error) {
                 console.error('Error fetching events:', error);
@@ -46,11 +42,11 @@ const MyEvents = (props) => {
             end: new Date(event.end_time),
             description: event.description,
             location: event.location,
+            is_open: event.is_open,
         }));
     };
 
     const handleViewChange = (view) => {
-        console.log(events)
         setView(view);
     };
 
@@ -62,8 +58,11 @@ const MyEvents = (props) => {
         setSelectedEvent(event);
     }
 
-    const handleModalClose = () => {
-        setSelectedEvent(null); // Reset selected event when modal is closed
+    const handleModalClose = (is_changed) => {
+        if (is_changed) {
+            handleEventsChanged();
+        }
+        setSelectedEvent(null);
     };
 
     return (
@@ -82,13 +81,7 @@ const MyEvents = (props) => {
                     onSelectEvent={handleEventClick}
                 />
             </div>
-            {selectedEvent && (
-                <DisplayEventModal
-                    eventId={selectedEvent.id} // Pass event ID to DisplayEventModal
-                    isOpen={true} // Ensure modal is open when an event is selected
-                    onClose={handleModalClose} // Handle modal close
-                />
-            )}
+            {selectedEvent && (<DisplayEventModal event={selectedEvent} onClose={handleModalClose} />)}
         </div>
     );
 };

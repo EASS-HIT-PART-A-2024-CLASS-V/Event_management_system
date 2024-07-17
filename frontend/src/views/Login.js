@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Api from '../Api/Api'; 
 
 const Login = (props) => {
-    console.log(props)
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("User does not exist");

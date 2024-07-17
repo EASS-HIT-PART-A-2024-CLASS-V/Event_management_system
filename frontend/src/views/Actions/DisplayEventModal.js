@@ -1,11 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import DisplayEvent from './DisplayEvent'; // Import DisplayEvent component
+import DisplayEvent from './DisplayEvent'; 
 
-const DisplayEventModal = ({ eventId }) => {
+const DisplayEventModal = ({ event, onClose }) => {
     const [showModal, setShowModal] = useState(false);
 
     const toggle = () => setShowModal(!showModal);
+
+    useEffect(() => {
+        console.log(event)
+    }, [event])
+
+    const handleChanges = () => {
+        if (!onClose) {
+            console.log("function on close does not exist")
+            return;
+        }
+        onClose(true)
+    }
+
+    const handleCancel = () => {
+        if (!onClose) {
+            console.log("function on close does not exist")
+            return;
+        }
+        onClose(false)
+    }
 
     return (
         <span>
@@ -15,10 +35,10 @@ const DisplayEventModal = ({ eventId }) => {
             <Modal isOpen={showModal} toggle={toggle} size="lg">
                 <ModalHeader>Event Details</ModalHeader>
                 <ModalBody>
-                    <DisplayEvent eventId={eventId} />
+                    <DisplayEvent event={event} onCancel={handleCancel } onChange={handleChanges} />
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="secondary" onClick={toggle}>
+                    <Button color="secondary" onClick={toggle} >
                         Close
                     </Button>
                 </ModalFooter>
