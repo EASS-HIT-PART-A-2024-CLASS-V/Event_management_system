@@ -12,6 +12,10 @@ For any questions or inquiries about this project, please contact:
 
 The Event Management System (EMS) is a full-stack web application developed for the EASS class at HIT. It provides a platform for managing events, scheduling, and user interactions. The system consists of three main components: frontend, backend, and database, each running in Docker containers for easy deployment and management.
 
+## Youtube video link
+
+https://youtu.be/iormDeqH4Qg
+
 ## Project Components
 
 - **Frontend**: User interface for event management and scheduling.
