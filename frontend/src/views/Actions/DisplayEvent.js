@@ -33,16 +33,6 @@ const DisplayEvent = ({ eventId, onChange, onCancel }) => {
         setEditMode(true);
     };
 
-    const handleCancel = () => {
-        setEditMode(false);
-        setEventDetails({
-            ...eventDetails,
-            start: moment(eventDetails.start_time).format('YYYY-MM-DDTHH:mm'),
-            end: moment(eventDetails.end_time).format('YYYY-MM-DDTHH:mm'),
-        });
-        onCancel && onCancel();
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -130,7 +120,7 @@ const DisplayEvent = ({ eventId, onChange, onCancel }) => {
                     <Button type="submit" color="primary">
                         Save Changes
                     </Button>{' '}
-                    <Button color="secondary" onClick={handleCancel}>
+                    <Button color="secondary" onClick={() => { setEditMode(false); } }>
                         Cancel
                     </Button>
                 </Form>

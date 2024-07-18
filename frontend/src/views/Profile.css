@@ -1,0 +1,62 @@
+/* Profile.css */
+
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+    .profile-container h2 {
+        margin-bottom: 10px;
+    }
+
+.profile-info {
+    margin-bottom: 20px;
+}
+
+.profile-form {
+    margin-bottom: 20px;
+}
+
+    .profile-form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .profile-form input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        font-size: 1em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .profile-form button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+.profile-messages {
+    margin-bottom: 20px;
+}
+
+    .profile-messages h3 {
+        margin-bottom: 10px;
+    }
+
+    .profile-messages p {
+        margin: 0;
+        color: #666;
+    }
+
+    .profile-messages strong {
+        color: red;
+    }

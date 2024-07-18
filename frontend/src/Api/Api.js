@@ -3,7 +3,7 @@ const BASE_URL = 'http://localhost:3000';
 
 ///functions/////////////////////////////////////////////////////////////////
 // Api.js
-
+///Users/////////////////////////////////////////////////////////////////
 const getAllUsers = async () => {
     try {
         const response = await fetch(`${BASE_URL}/api/users/`);
@@ -18,6 +18,7 @@ const getAllUsers = async () => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const getUserById = async (userId) => {
     try {
         const response = await fetch(`${BASE_URL}/api/users/${userId}`);
@@ -32,6 +33,7 @@ const getUserById = async (userId) => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const getUserAuth = async (username, password) => {
     try {
         const props = { username, password };
@@ -57,7 +59,7 @@ const getUserAuth = async (username, password) => {
     }
 }
 
-
+/////////////////////////////////////////////////////////////////////////////
 const createUser = async (user) => {
     const userJson = JSON.stringify(user);
 
@@ -81,6 +83,7 @@ const createUser = async (user) => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const updateUser = async (userId, user) => {
     try {
         const response = await fetch(`${BASE_URL}/api/users/${userId}`, {
@@ -101,6 +104,7 @@ const updateUser = async (userId, user) => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const deleteUser = async (userId) => {
     try {
         const response = await fetch(`${BASE_URL}/api/users/delete/${userId}`, {
@@ -117,6 +121,7 @@ const deleteUser = async (userId) => {
     }
 }
 
+////Events///////////////////////////////////////////////////////////////////
 const getAllEvents = async () => {
     try {
         const response = await fetch(`${BASE_URL}/api/events/`);
@@ -131,6 +136,7 @@ const getAllEvents = async () => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const getEventById = async (eventId) => {
     try {
         const response = await fetch(`${BASE_URL}/api/events/${eventId}`);
@@ -145,6 +151,7 @@ const getEventById = async (eventId) => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const getEventByUserId = async (userId) => {
     try {
         const response = await fetch(`${BASE_URL}/api/events_by_user/${userId}`);
@@ -159,6 +166,7 @@ const getEventByUserId = async (userId) => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const createEvent = async (event) => {
     try {
         const response = await fetch(`${BASE_URL}/api/events/create`, {
@@ -179,6 +187,7 @@ const createEvent = async (event) => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const updateEvent = async (eventId, event) => {
     try {
         const response = await fetch(`${BASE_URL}/api/events/${eventId}`, {
@@ -199,6 +208,7 @@ const updateEvent = async (eventId, event) => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const deleteEvent = async (eventId) => {
     try {
         const response = await fetch(`${BASE_URL}/api/events/${eventId}`, {
@@ -215,6 +225,7 @@ const deleteEvent = async (eventId) => {
     }
 }
 
+///Participants//////////////////////////////////////////////////////////////
 const getAllParticipants = async () => {
     try {
         const response = await fetch(`${BASE_URL}/api/participants/`);
@@ -229,6 +240,7 @@ const getAllParticipants = async () => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const getParticipantById = async (participantId) => {
     try {
         const response = await fetch(`${BASE_URL}/api/participants/${participantId}`);
@@ -243,6 +255,7 @@ const getParticipantById = async (participantId) => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const createParticipant = async (participant) => {
     try {
         const response = await fetch(`${BASE_URL}/api/participants/`, {
@@ -263,6 +276,7 @@ const createParticipant = async (participant) => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const updateParticipant = async (participantId, participant) => {
     try {
         const response = await fetch(`${BASE_URL}/api/participants/${participantId}`, {
@@ -283,6 +297,7 @@ const updateParticipant = async (participantId, participant) => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const deleteParticipant = async (participantId) => {
     try {
         const response = await fetch(`${BASE_URL}/api/participants/${participantId}`, {
@@ -299,6 +314,7 @@ const deleteParticipant = async (participantId) => {
     }
 }
 
+///Invitations///////////////////////////////////////////////////////////////
 const getAllInvitations = async () => {
     try {
         const response = await fetch(`${BASE_URL}/api/invitations/`);
@@ -313,6 +329,7 @@ const getAllInvitations = async () => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const getInvitationById = async (invitationId) => {
     try {
         const response = await fetch(`${BASE_URL}/api/invitations/${invitationId}`);
@@ -327,6 +344,7 @@ const getInvitationById = async (invitationId) => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const createInvitation = async (invitation) => {
     try {
         const response = await fetch(`${BASE_URL}/api/invitations/`, {
@@ -347,6 +365,7 @@ const createInvitation = async (invitation) => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const updateInvitation = async (invitationId, invitation) => {
     try {
         const response = await fetch(`${BASE_URL}/api/invitations/${invitationId}`, {
@@ -367,6 +386,7 @@ const updateInvitation = async (invitationId, invitation) => {
     }
 }
 
+/////////////////////////////////////////////////////////////////////////////
 const deleteInvitation = async (invitationId) => {
     try {
         const response = await fetch(`${BASE_URL}/api/invitations/${invitationId}`, {
@@ -386,116 +406,133 @@ const deleteInvitation = async (invitationId) => {
 ///Declerations//////////////////////////////////////////////////////////////
 const Api = {
     ///users/////////////////////////////////////////////////////////////////
-
     getAllUsers: async () => {
         let data = await getAllUsers()
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     getUserById: async (userId) => {
         let data = await getUserById(userId)
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     getUserAuth: async (username, password) => {
         let data = await getUserAuth(username, password)
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     createUser: async (user) => {
         let data = await createUser(user)
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     updateUser: async (userId, user) => {
         let data = await updateUser(userId, user)
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     deleteUser: async (userId) => {
         let data = await deleteUser(userId)
         return data
     },
-    ///events/////////////////////////////////////////////////////////////////
 
+    ///events/////////////////////////////////////////////////////////////////
     getAllEvents: async () => {
         let data = await getAllEvents()
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     getEventById: async (eventId) => {
         let data = await getEventById(eventId)
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     getEventByUserId: async (userId) => {
         let data = await getEventByUserId(userId)
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     createEvent: async (event) => {
         let data = await createEvent(event)
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     updateEvent: async (eventId, event) => {
         let data = await updateEvent(eventId, event)
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     deleteEvent: async (eventId) => {
         let data = await deleteEvent(eventId)
         return data
     },
-    ///participants/////////////////////////////////////////////////////////////////
 
+    ///participants/////////////////////////////////////////////////////////////////
     getAllParticipants: async () => {
         let data = await getAllParticipants()
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     getParticipantById: async (participantId) => {
         let data = await getParticipantById(participantId)
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     createParticipant: async (participant) => {
         let data = await createParticipant(participant)
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     updateParticipant: async (participantId, participant) => {
         let data = await updateParticipant(participantId, participant)
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     deleteParticipant: async (participantId) => {
         let data = await deleteParticipant(participantId)
         return data
     },
-    ///invitations/////////////////////////////////////////////////////////////////
 
+    ///invitations/////////////////////////////////////////////////////////////////
     getAllInvitations: async () => {
         let data = await getAllInvitations()
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     getInvitationById: async (invitationId) => {
         let data = await getInvitationById(invitationId)
         let jsonString = JSON.stringify(data)
         return jsonString
     },
 
+    //////////////////////////////////////////////////////////////////////////
     createInvitation: async (invitation) => {
         let data = await createInvitation(invitation)
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     updateInvitation: async (invitationId, invitation) => {
         let data = await updateInvitation(invitationId, invitation)
         return data
     },
 
+    //////////////////////////////////////////////////////////////////////////
     deleteInvitation: async (invitationId) => {
         let data = await deleteInvitation(invitationId)
         return data

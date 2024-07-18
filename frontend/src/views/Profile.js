@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
-import DeleteUserModal from './Actions/DeleteUserModal'
+import './Profile.css'; // Import your CSS file
+import DeleteUserModal from './Actions/DeleteUserModal';
 import Api from '../Api/Api';
 
 const Profile = (props) => {
@@ -29,7 +29,7 @@ const Profile = (props) => {
 
     const handleAction = () => {
         fetchUser(props.userId);
-    }
+    };
 
     const handleNameChange = (event) => {
         setNewName(event.target.value);
@@ -47,14 +47,14 @@ const Profile = (props) => {
     };
 
     const handleDelete = () => {
-        setUser(null)
-        setNewName('')
-        setNewEmail('')
-        setNewPassword('')
-        setUpdateMessage('')
-        setFetchMessage('')
+        setUser(null);
+        setNewName('');
+        setNewEmail('');
+        setNewPassword('');
+        setUpdateMessage('');
+        setFetchMessage('');
         handleAction();
-    }
+    };
 
     const handleUpdateProfile = async () => {
         try {
@@ -62,12 +62,11 @@ const Profile = (props) => {
                 setUpdateMessage('Please enter at least one field to update.');
                 return;
             }
-
             const updatedUser = {
                 ...user,
-                name: (newName === '') || !newName ? user.name : newName,
-                email: (newEmail === '') || !newEmail ? user.email : newEmail,
-                password_hash: (newPassword === '') || !newPassword ? user.password : newPassword,
+                name: newName || user.name,
+                email: newEmail || user.email,
+                password_hash: newPassword || user.password_hash,
             };
 
             const response = await Api.updateUser(props.userId, updatedUser);
@@ -82,7 +81,7 @@ const Profile = (props) => {
 
     if (!user) {
         return (
-            <div>
+            <div className="profile-container">
                 <p>Loading...</p>
                 <strong>Please make sure you are logged in.</strong>
             </div>
@@ -125,13 +124,13 @@ const Profile = (props) => {
                 />
                 <button onClick={handleUpdateProfile}>Update Profile</button>
                 <p>{updateMessage}</p>
-            </div>            
+            </div>
             <div className="profile-messages">
                 <h3>Fetch Message</h3>
                 <p>{fetchMessage}</p>
             </div>
             <div>
-                <DeleteUserModal userId={props.userId} onDelete={handleDelete} ></DeleteUserModal>
+                <DeleteUserModal userId={props.userId} onDelete={handleDelete} />
             </div>
         </div>
     );
