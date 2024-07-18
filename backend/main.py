@@ -1,5 +1,6 @@
 from typing import List
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from schemas import User, Event, Participant, Invitation, AuthRequest
 from datetime import datetime
 from mongo_db import (
@@ -10,6 +11,15 @@ from mongo_db import (
 )
 
 app = FastAPI()
+
+###############################################################################
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows requests from the specified origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods (GET, POST, PUT, DELETE, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
 
 ###############################################################################
 @app.get('/api/hi')
@@ -40,7 +50,9 @@ async def read_user(auth_request: AuthRequest):
 ###############################################################################
 @app.post('/api/users/', response_model=User)
 async def create_user(user: User):
-    user.created_at = datetime.now()
+    print (user)
+    user.created_at = datetime.now()    
+    print (user)
     return add_user(user)
 
 ###############################################################################

@@ -1,6 +1,11 @@
 # Use an official Python runtime as a parent image
 FROM python:3.10.12
 
+ENV MONGO_INITDB_ROOT_USERNAME=admin
+ENV MONGO_INITDB_ROOT_PASSWORD=admin_password
+ENV MONGO_INITDB_DATABASE=ems_database
+ENV MONGO_INITDB_HOST=localhost
+ENV MONGO_INITDB_PORT=27018
 
 # Set the working directory in the container
 WORKDIR /app

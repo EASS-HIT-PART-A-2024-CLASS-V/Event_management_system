@@ -7,10 +7,10 @@ from bson import ObjectId
 class User(BaseModel):
     id: Optional[str] = ""
     username: str
-    email: EmailStr
+    email: str  # EmailStr - to simplify this step
     password_hash: str
     name: Optional[str] = ""
-    created_at: Optional[datetime] = ""
+    created_at: Optional[datetime] = datetime.now()  
 
     class ConfigDict:
         populate_by_name  = True
@@ -39,7 +39,7 @@ class Event(BaseModel):
     end_time: datetime
     created_by: str  # This should be a reference to User ID
     is_open: bool = True
-    created_at: Optional[datetime] = 0
+    created_at: Optional[datetime] = datetime.now()  
 
     class ConfigDict:
         populate_by_name  = True
@@ -62,7 +62,7 @@ class Participant(BaseModel):
     id: Optional[str] = Field(default_factory=lambda: str(ObjectId()), alias="_id")
     event_id: str  # This should be a reference to Event ID
     user_id: str  # This should be a reference to User ID
-    joined_at: Optional[datetime] = None
+    joined_at: Optional[datetime] = datetime.now()  
         
     class ConfigDict:
         populate_by_name  = True
@@ -85,8 +85,8 @@ class Invitation(BaseModel):
     inviter_id: str  = "" # This should be a reference to User ID
     invitee_id: str  = "" # This should be a reference to User ID
     status: Optional[str] = "pending"  # "pending", "accepted", "declined"
-    sent_at: Optional[datetime] = 0
-    responded_at: Optional[datetime] = 0
+    sent_at: Optional[datetime] = datetime.now()  
+    responded_at: Optional[datetime] = datetime.now()  
 
     class ConfigDict:
         populate_by_name  = True

@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from typing import List, Optional
 from bson import ObjectId
@@ -6,17 +7,28 @@ from schemas import User, Event, Participant, Invitation
 
 from pymongo import MongoClient
 
+ROOT_USERNAME= os.getenv('MONGO_INITDB_ROOT_USERNAME', 'admin')
+ROOT_PASSWORD= os.getenv('MONGO_INITDB_ROOT_PASSWORD', 'admin_password')
+DATABASE= os.getenv('MONGO_INITDB_DATABASE', 'ems_database')
+HOST= os.getenv('MONGO_INITDB_HOST', 'localhost')
+PORT= os.getenv('MONGO_INITDB_PORT', '27017')
+print("ROOT_USERNAME:" , ROOT_USERNAME )
+print("ROOT_PASSWORD:" , ROOT_PASSWORD )
+print("DATABASE:" , DATABASE )
+print("HOST:" , HOST )
+print("PORT:" , PORT )
 #############################################################################
 # MongoDB connection
-username = 'admin'
-password = 'admin_password'
-host = 'localhost'
-port = 27018
-database_name = 'ems_database'
-mongoUri = f'mongodb://{username}:{password}@{host}:{port}'
+mongoUri = f'mongodb://{ROOT_USERNAME}:{ROOT_PASSWORD}@{HOST}:{PORT}'
+mongoUri = f'mongodb://{HOST}:{PORT}'
 
-client = MongoClient(mongoUri)
-db = client[database_name]
+client = MongoClient(
+    host=HOST,
+    port=int(PORT),
+    username=ROOT_USERNAME,
+    password=ROOT_PASSWORD
+    )
+db = client[DATABASE]
 
 # Collections
 users_collection = db['users']

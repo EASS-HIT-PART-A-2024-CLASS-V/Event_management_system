@@ -9,7 +9,6 @@ services:
       - ems_network
     depends_on:
       - backend
-      - database
 
   backend:
     build:
@@ -17,6 +16,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    environment:
+        MONGO_INITDB_ROOT_USERNAME: admin
+        MONGO_INITDB_ROOT_PASSWORD: admin_password
+        MONGO_INITDB_DATABASE: ems_database
+        MONGO_INITDB_HOST: database
+        MONGO_INITDB_PORT: 27017
     networks:
       - ems_network
     depends_on:
@@ -25,20 +30,14 @@ services:
   database:
     image: mongo:latest
     ports:
-      - "27018:27017"
+      - "27017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: admin_password
-      MONGO_INITDB_DATABASE: ems_database
-    volumes:
-      - mongo_data:/data/db
+        MONGO_INITDB_ROOT_USERNAME: admin
+        MONGO_INITDB_ROOT_PASSWORD: admin_password
+        MONGO_INITDB_DATABASE: ems_database
     networks:
       - ems_network
 
 networks:
   ems_network:
     driver: bridge
-
-volumes:
-  mongo_data:
-    driver: local
