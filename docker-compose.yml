@@ -1,0 +1,44 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - ems_network
+    depends_on:
+      - backend
+      - database
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - ems_network
+    depends_on:
+      - database
+
+  database:
+    image: mongo:latest
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin_password
+      MONGO_INITDB_DATABASE: ems_database
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - ems_network
+
+networks:
+  ems_network:
+    driver: bridge
+
+volumes:
+  mongo_data:
+    driver: local

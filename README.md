@@ -1,76 +1,67 @@
-# Event Management System (EMS)
+## Event Management System (EMS) - README
 
-## Contact
+## Contact Information
+
 For any questions or inquiries about this project, please contact:
 
-  Name: Rottem Dresler
-  
-  Student ID: 209207398
-  
-  Email: rottem1357@gmail.com
+- **Name**: Rottem Dresler
+- **Student ID**: 209207398
+- **Email**: rottem1357@gmail.com
 
 ## Description
 
-This project, developed for EASS class at HIT,
-provides a backend system for managing and scheduling events. It utilizes FastAPI with Python to create APIs for event creation, scheduling, and user interaction.
+The Event Management System (EMS) is a full-stack web application developed for the EASS class at HIT. It provides a platform for managing events, scheduling, and user interactions. The system consists of three main components: frontend, backend, and database, each running in Docker containers for easy deployment and management.
 
-## Project Overview
+## Project Components
 
-The Event Management System (EMS) allows users to:
-- Create new events
-- Schedule events with other users
-- View API documentation using FastAPI
-
-The project is designed to demonstrate backend development skills using FastAPI and Docker for containerization.
+- **Frontend**: User interface for event management and scheduling.
+- **Backend**: API server built with FastAPI (Python) for backend operations.
+- **Database**: MongoDB database for storing event data and user information.
 
 ## Setup Instructions
-
-To run the project locally, follow these steps:
+To run the entire Event Management System project locally using Docker Compose, follow these steps:
 
 ### 1. Clone the Repository
 
 ~~~
-git clone https://github.com/EASS-HIT-PART-A-2024-CLASS-V/Event_management_system.git
-cd Event_management_system/backend
-~~~ 
-
-### 2. Build the Docker Image
-
-Navigate to the backend directory and build the Docker image (ems_backend):
-
-~~~
-docker build -t ems_backend .
+git clone git@github.com:EASS-HIT-PART-A-2024-CLASS-V/Event_management_system.git
+cd Event_management_system
 ~~~
 
-### 3. Run the Docker Container
-
-Run the Docker container, mapping port 8000 on your local machine to port 8000 inside the container:
-
-~~~
-docker run -p 8000:8000 ems_backend
-~~~
-
-### 4. Access the API Documentation
-
-Open a web browser and navigate to:
+### 2. Build and Start Docker Containers
+Use Docker Compose to build and start all project services:
 
 ~~~
-http://localhost:8000/docs
+docker-compose up --build
 ~~~
 
-### 5. Running Tests
+This command builds the Docker images and starts the containers for frontend, backend, and database services.
 
-To run tests for the backend using pytest, follow these steps:
+### 3. Accessing the Application
 
-#### 1. Navigate to the backend directory:
+- **Frontend**: Access the EMS frontend application at http://localhost:3000 in your web browser.
+- **Backend API**: Explore and interact with the backend APIs at http://localhost:8000/docs using FastAPI's Swagger UI.
+- **Database**: MongoDB database is accessible internally through Docker networking.
 
-~~~
-cd Event_management_system/backend
-~~~
+### 4. Additional Notes
+
+- Make sure Docker and Docker Compose are installed and running on your machine before running the above commands.
+- Adjust configurations in docker-compose.yml or individual service Dockerfiles if necessary, depending on your environment requirements.
+- Ensure connectivity between frontend, backend, and database services for full functionality of the EMS application.
 
 
-#### 2. Run pytest to execute the tests:
+## Troubleshooting
+If you encounter any issues or have questions about setting up or running the Event Management System project, please refer to the respective README files in **frontend/**, **backend/**, and **database/** directories for detailed instructions. You can also contact the project owner for assistance.
 
-~~~
-pytest
-~~~
+
+### Explanation:
+
+- **Contact Information**: Provides contact details for inquiries related to the project.
+- **Description**: Overview of the Event Management System project, its purpose, and components.
+- **Project Components**: Brief description of each component (frontend, backend, database) and their roles.
+- **Setup Instructions**: Step-by-step guide to clone the repository and run the entire project locally using Docker Compose.
+- **Accessing the Application**: Instructions on how to access the frontend application and backend APIs in a web browser.
+- **Additional Notes**: Tips and considerations for configuration, deployment, and usage of the EMS project.
+- **Troubleshooting**: Guidance on where to find help if issues arise during setup or usage.
+
+Ensure to customize placeholders like `<repository-url>`, `localhost`, and adjust paths or commands as per your project's actual structure and requirements. This README file serves as a central guide for developers and stakeholders to understand, set up, and use the Event Management System project efficiently. Adjust and expand as necessary to meet specific project requirements or audience needs.
