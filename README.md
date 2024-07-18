@@ -52,16 +52,3 @@ This command builds the Docker images and starts the containers for frontend, ba
 
 ## Troubleshooting
 If you encounter any issues or have questions about setting up or running the Event Management System project, please refer to the respective README files in **frontend/**, **backend/**, and **database/** directories for detailed instructions. You can also contact the project owner for assistance.
-
-
-### Explanation:
-
-- **Contact Information**: Provides contact details for inquiries related to the project.
-- **Description**: Overview of the Event Management System project, its purpose, and components.
-- **Project Components**: Brief description of each component (frontend, backend, database) and their roles.
-- **Setup Instructions**: Step-by-step guide to clone the repository and run the entire project locally using Docker Compose.
-- **Accessing the Application**: Instructions on how to access the frontend application and backend APIs in a web browser.
-- **Additional Notes**: Tips and considerations for configuration, deployment, and usage of the EMS project.
-- **Troubleshooting**: Guidance on where to find help if issues arise during setup or usage.
-
-Ensure to customize placeholders like `<repository-url>`, `localhost`, and adjust paths or commands as per your project's actual structure and requirements. This README file serves as a central guide for developers and stakeholders to understand, set up, and use the Event Management System project efficiently. Adjust and expand as necessary to meet specific project requirements or audience needs.

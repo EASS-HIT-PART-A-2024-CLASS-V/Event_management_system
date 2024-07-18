@@ -54,15 +54,3 @@ The MongoDB database is now running and accessible on your local machine. If you
 
 ## Troubleshooting
 If you encounter any issues or have questions about setting up the database service, please refer to the MongoDB documentation or contact the project owner for assistance.
-
-### Explanation:
-
-- **Contact Information**: Provides contact details for inquiries related to the project.
-- **Description**: Brief overview of the database service and its role within the Event Management System project.
-- **Project Overview**: Describes the use of MongoDB for data storage and initialization using `init-mongo.js`.
-- **Setup Instructions**: Step-by-step guide to clone, build, and run the MongoDB database service locally using Docker.
-- **Accessing MongoDB**: Notes on how to access and interact with the MongoDB database once it's running.
-- **Additional Notes**: Any additional tips or considerations for configuring and using the MongoDB service.
-- **Troubleshooting**: Guidance on where to find help if issues arise during setup or usage.
-
-Ensure to customize placeholders like `<repository-url>`, `ems_mongodb`, and adjust paths or commands as per your project's actual structure and requirements. This README file serves as a helpful guide for developers who are setting up, using, or contributing to the MongoDB database service of your Event Management System project.

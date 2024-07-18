@@ -7,7 +7,7 @@ ENV MONGO_INITDB_ROOT_PASSWORD=admin_password
 ENV MONGO_INITDB_DATABASE=ems_database
 
 # Copy initialization script into the container
-COPY init-mongo.js /docker-entrypoint-initdb.d/
+# COPY init-mongo.js /docker-entrypoint-initdb.d/
 
 # Expose port 27017 to the host
 EXPOSE 27017
